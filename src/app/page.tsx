@@ -1,18 +1,12 @@
-import { Suspense } from 'react';
-import { fetchBeehiivPosts } from './actions';
-import Posts from './Posts';
-
-export const revalidate = 3600; // Revalidate every hour
+import { fetchPosts } from '@/app/lib/posts/actions';
+import PostsList from '@/app/components/PostsList';
 
 export default async function Home() {
-  const posts = await fetchBeehiivPosts();
-
+  const recentPosts = await fetchPosts({ limit: '3', orderBy: 'publish_date', });
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold mb-8">Beehiiv Posts</h1>
-      <Suspense fallback={<div>Loading posts...</div>}>
-        <Posts initialPosts={posts} />
-      </Suspense>
+    <main>
+      <h1>Welcome to our blog</h1>
+      <PostsList className="grid grid-cols-3 gap-4" posts={recentPosts}/>
     </main>
   );
 }
