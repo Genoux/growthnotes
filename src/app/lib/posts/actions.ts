@@ -17,7 +17,12 @@ export async function fetchPosts({
   }
 
   try {
-    const url = new URL(`https://api.beehiiv.com/v2/publications/${publicationId}/posts`);
+    let url: URL;
+    if (process.env.NODE_ENV === 'development') {
+      url = new URL(`https://stoplight.io/mocks/beehiiv/v2/104190750/publications/${publicationId}/posts`);
+    } else {
+      url = new URL(`https://api.beehiiv.com/v2/publications/${publicationId}/posts`);
+    }
     
     if (expand.length > 0) {
       expand.forEach(item => url.searchParams.append('expand[]', item));

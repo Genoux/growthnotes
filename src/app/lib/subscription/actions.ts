@@ -29,7 +29,6 @@ export async function submitSubscription(formData: FormData): Promise<SubmitSubs
     };
 
     if (process.env.NODE_ENV === 'development') {
-      console.log('Using Stoplight mock server for API requests');
       url = `https://stoplight.io/mocks/beehiiv/v2/104190750/publications/${publicationId}/subscriptions`;
     } else {
       url = `https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`;
