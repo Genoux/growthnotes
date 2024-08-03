@@ -27,11 +27,11 @@ export default function PostCard({ post, isLoading }: PostCardProps) {
       <p>Published on {format(fromUnixTime(Number(post.publish_date)), 'MMMM d, yyyy')}</p>
       {post.thumbnail_url && (
         <Image
-          src={post.thumbnail_url}
+          src={post.thumbnail_url !== 'string' ? post.thumbnail_url : 'https://tinyurl.com/25ks83w3'}
           alt={post.title}
-          width={300}
-          height={200}
-          className="w-full h-40 object-cover mb-4"
+          width={420}
+          height={250}
+          className="w-full object-cover border border-primary border-opacity-10"
         />
       )}
       <h2>{post.title}</h2>

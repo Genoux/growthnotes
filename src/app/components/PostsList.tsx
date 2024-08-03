@@ -15,13 +15,10 @@ export default function PostsList({ posts, className = '' }: PostsListProps) {
   const postsList = updatedPosts || posts;
 
   return (
-    <div>
-      {isLoading && <div>Updating...</div>}
-      <div className={className}>
-        {postsList.map(post => (
-          <PostCard key={post.id} post={post} isLoading={isLoading} />
-        ))}
-      </div>
+    <div className={className}>
+      {postsList.map(post => (
+        <PostCard key={post.id} post={post} isLoading={isLoading} />
+      ))}
     </div>
   );
 }

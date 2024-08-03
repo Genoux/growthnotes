@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Providers from './providers'
 import "./globals.css";
 import { fontVariables } from '@/fonts';
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Growthnotes",
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={fontVariables}>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
