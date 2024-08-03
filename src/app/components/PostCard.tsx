@@ -5,12 +5,12 @@ import Image from 'next/image';
 import { format, fromUnixTime } from 'date-fns';
 
 interface PostCardProps {
-  post?: Post;
+  post: Post;
   isLoading: boolean;
 }
 
 export default function PostCard({ post, isLoading }: PostCardProps) {
-  if (isLoading || !post) {
+  if (isLoading) {
     return (
       <div className="border p-4 rounded-lg shadow-md">
         <Skeleton className="w-32 h-4 mb-4" />

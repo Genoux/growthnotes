@@ -1,4 +1,5 @@
 'use client'
+
 import { usePosts } from '@/app/hooks/usePosts';
 import PostCard from '@/app/components/PostCard';
 import { Post } from '@/app/lib/posts/types';
