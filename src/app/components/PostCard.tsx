@@ -34,8 +34,8 @@ export default function PostCard({ post, isLoading }: PostCardProps) {
           className="w-full h-40 object-cover mb-4"
         />
       )}
-      <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-      <p className="text-gray-600 mb-2">{post.subtitle}</p>
+      <h2>{post.title}</h2>
+      <p>{post.subtitle}</p>
       <Link href={`/posts/${post.slug}`} className="text-blue-500 hover:underline">
         Read more
       </Link>

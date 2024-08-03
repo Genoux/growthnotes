@@ -7,7 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-lars)', 'sans-serif'],
+        mono: ['var(--font-lars-mono)', 'monospace'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -74,7 +78,23 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function({ addUtilities }: { addUtilities: Function }) {
+      const newUtilities = {
+        '.font-bold': {
+          'font-family': 'var(--font-lars-bold)',
+        },
+        '.font-medium': {
+          'font-family': 'var(--font-lars-medium)',
+        },
+        '.font-bold-condensed': {
+          'font-family': 'var(--font-lars-bold-condensed)',
+        },
+      }
+      addUtilities(newUtilities)
+    }
+  ],
 } satisfies Config
 
 export default config
