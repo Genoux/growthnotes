@@ -56,11 +56,21 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        'dark-blue': '#030712',
+        'orange': '#FF6635',
+        'yellow': '#FFE366',
+        'blue': '#3A88FF',
+        'light-green': '#D6DBC9',
+        'dark-purple': '#190F29',
+        'off-white': '#F9F7F7',
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        'hard': '8px 8px 0px 0px #000',
       },
       keyframes: {
         "accordion-down": {
