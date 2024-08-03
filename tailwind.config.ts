@@ -7,7 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-lars)', 'sans-serif'],
+        mono: ['var(--font-lars-mono)', 'monospace'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -25,7 +29,7 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#030712",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -38,7 +42,7 @@ const config = {
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          foreground: "hsl(var(--muted-foreground) / 0.5)",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
@@ -52,11 +56,21 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        'dark-blue': '#030712',
+        'orange': '#FF6635',
+        'yellow': '#FFE366',
+        'blue': '#3A88FF',
+        'light-green': '#D6DBC9',
+        'dark-purple': '#190F29',
+        'off-white': '#F9F7F7',
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        'hard': '8px 8px 0px 0px #000',
       },
       keyframes: {
         "accordion-down": {
@@ -74,7 +88,23 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function({ addUtilities }: { addUtilities: Function }) {
+      const newUtilities = {
+        '.font-bold': {
+          'font-family': 'var(--font-lars-bold)',
+        },
+        '.font-medium': {
+          'font-family': 'var(--font-lars-medium)',
+        },
+        '.font-bold-condensed': {
+          'font-family': 'var(--font-lars-bold-condensed)',
+        },
+      }
+      addUtilities(newUtilities)
+    }
+  ],
 } satisfies Config
 
 export default config
