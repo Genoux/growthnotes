@@ -1,4 +1,4 @@
-export interface Post {
+export type Post = {
   id: string;
   title: string;
   subtitle?: string;
@@ -18,7 +18,7 @@ export interface Post {
 
 type expand = 'free_web_content' | 'premium_web_content';
 
-export interface FetchPostsParams {
+export type FetchPostsParams = {
   limit?: string;
   orderBy?: string;
   direction?: 'asc' | 'desc';

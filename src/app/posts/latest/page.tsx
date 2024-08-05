@@ -1,18 +1,17 @@
 'use client'
 
-import { usePostBySlug } from '@/app/hooks/usePosts'
+import { useLatestPost } from '@/app/hooks/usePosts'
 import { notFound } from 'next/navigation'
 
-export default function PostPage({ params }: { params: { slug: string } }) {
-  const { data: post, isLoading, error } = usePostBySlug(params.slug)
-
+export default function LatestPostPage() {
+  const { data: post, isLoading, error } = useLatestPost()
+  
   if (isLoading) {
     return <PostSkeleton />
   }
 
   if (error) {
-    console.error('Error fetching post:', error)
-    return <div>Error loading post. Please try again later.</div>
+    return <div>Error loading the latest post. Please try again later.</div>
   }
 
   if (!post) {
@@ -21,7 +20,10 @@ export default function PostPage({ params }: { params: { slug: string } }) {
 
   return (
     <article className="max-w-3xl mx-auto mt-8 px-4">
-      <div dangerouslySetInnerHTML={{ __html: post.content!.free!.web || '' }} />
+      <div
+        dangerouslySetInnerHTML={{ __html: post.content?.free?.web || '' }}
+        className="prose prose-lg max-w-none"
+      />
     </article>
   )
 }
