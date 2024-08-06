@@ -1,8 +1,12 @@
 import SubscriptionForm from '@/app/components/SubscriptionForm'
 
-const SubscriptionBanner = () => {
+type SubscriptionBannerProps = {
+  className?: string
+}
+
+const SubscriptionBanner = ({ className = '' }: SubscriptionBannerProps) => {
   return (
-    <div className='py-32 container'>
+    <div className={className}>
       <div className="bg-yellow py-36 shadow-hard outline outline-4 outline-primary rounded-sm">
       <div className="max-w-3xl mx-auto text-center flex flex-col gap-12">
         <h2 className="text-4xl font-medium">

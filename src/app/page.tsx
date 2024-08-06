@@ -34,8 +34,8 @@ export default function Home() {
         <PostList limit={'3'} className="grid-cols-3" />
       </section>
       <section className='border-y'>
-        <div className='container flex items-center h-full border-x'>
-          <div className='border-r py-20 h-full pr-8 w-full'>
+        <div className=' container flex items-center h-full border-r'>
+          <div className='border-x py-20 h-full w-full'>
             <Image src="/geo-blod.svg" alt="GN Blob" width={500} height={600} className='mx-auto w-48 h-full object-contain' />
           </div>
           <div className='flex flex-col justify-center h-full'>
@@ -48,7 +48,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <SubscriptionBanner />
+      <SubscriptionBanner className='py-20 container' />
     </main>
   );
 }

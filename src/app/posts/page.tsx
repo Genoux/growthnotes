@@ -1,10 +1,18 @@
+//TODO: Handle pagination or lazy loading
+
 import PostList from '@/app/components/PostList'
+import SubscriptionBanner from '../components/SubscriptionBanner'
 
 export default function PostsPage() {
   return (
-    <div className="max-w-4xl mx-auto mt-8 px-4">
-      <h1 className="text-3xl font-bold mb-6">All Posts</h1>
-      <PostList className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3" />
-    </div>
+    <>
+      <div className="container py-20 flex flex-col gap-8">
+        <h1 className='text-5xl font-bold-condensed border-b pb-4'>Archive</h1>
+        <PostList className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3" />
+      </div>
+      <section className='border-t'>
+        <SubscriptionBanner className='py-20 container' />
+      </section>
+    </>
   )
 }

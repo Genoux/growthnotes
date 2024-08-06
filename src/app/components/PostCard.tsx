@@ -23,7 +23,7 @@ export default function PostCard({ post, isLoading = false }: PostCardProps) {
         whileHover={{ x: -2, y: -4, boxShadow: '8px 8px 0px #000' }}
         whileTap={{ x: -1, y: -1, boxShadow: '2px 2px 0px #000' }}
         transition={{ duration: 0.12 }}
-        className="outline outline-[1px] outline-primary p-4 rounded-xl bg-white hover:outline-[3px] overflow-hidden min-h-[430px]">
+        className="outline outline-[1px] outline-primary p-4 rounded-lg bg-white hover:outline-[3px] overflow-hidden min-h-[450px]">
         <div className='flex flex-col items-start gap-2'>
           <p className='font-bold-condensed'>{format(fromUnixTime(Number(post.publish_date)), 'MMMM d, yyyy')}</p>
           <h3 className="text-3xl font-bold-condensed">{post.title}</h3>
@@ -45,7 +45,7 @@ export default function PostCard({ post, isLoading = false }: PostCardProps) {
 
 function PostCardSkeleton() {
   return (
-    <div className="border border-primary p-4 rounded-xl bg-white flex flex-col items-start gap-2 min-h-[430px]">
+    <div className="border border-primary p-4 rounded-lg bg-white flex flex-col items-start gap-2 min-h-[450px]">
       <Skeleton className="w-[100px] h-[16px] rounded-full bg-neutral-200 mb-2" />
       <Skeleton className="w-full h-[20px] rounded-full bg-neutral-200" />
       <Skeleton className="w-3/4 h-[20px] rounded-full bg-neutral-200" />
