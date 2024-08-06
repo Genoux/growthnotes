@@ -48,7 +48,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <SubscriptionBanner className='py-32 container' />
+      <SubscriptionBanner className='py-20 container' />
     </main>
   );
 }

@@ -38,7 +38,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className='flex w-full justify-between gap-8'>
+          <div className='flex w-full justify-end gap-24'>
             <div>
               <h3 className="text-xl font-semibold mb-4">Pages</h3>
               <ul className='flex flex-col gap-2'>
