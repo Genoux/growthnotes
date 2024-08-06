@@ -1,5 +1,4 @@
 'use server'
-
 import { Post, FetchPostsParams } from './types';
 
 export async function fetchPosts({
@@ -7,6 +6,7 @@ export async function fetchPosts({
   orderBy = 'publish_date',
   direction = 'desc',
   audience = 'free',
+  status = 'confirmed',
   expand = [],
 }: FetchPostsParams = {}): Promise<Post[]> {
   try {
@@ -15,19 +15,23 @@ export async function fetchPosts({
     if (!publicationId || !apiToken) {
       throw new Error('API credentials are not set');
     }
+
+    const numericLimit = limit ? parseInt(limit) : 0;
+    const fetchLimit = numericLimit > 0 ? numericLimit + 1 : limit;
+
     let url: URL;
     if (process.env.NODE_ENV === 'development') {
       url = new URL(`https://stoplight.io/mocks/beehiiv/v2/104190750/publications/${publicationId}/posts`);
     } else {
       url = new URL(`https://api.beehiiv.com/v2/publications/${publicationId}/posts`);
     }
-    if (expand.length > 0) {
-      expand.forEach(item => url.searchParams.append('expand[]', item));
-    }
     url.searchParams.append('direction', direction);
     url.searchParams.append('audience', audience);
-    url.searchParams.append('limit', limit);
+    url.searchParams.append('limit', fetchLimit.toString());
     url.searchParams.append('order_by', orderBy);
+    url.searchParams.append('status', status);
+    expand.forEach(item => url.searchParams.append('expand[]', item));
+
     const response = await fetch(url, {
       headers: {
         'Authorization': `Bearer ${apiToken}`,
@@ -36,31 +40,31 @@ export async function fetchPosts({
       next: { revalidate: 3600 }
     });
     if (!response.ok) {
-      throw new Error('Failed to fetch posts from API');
+      const errorText = await response.text();
+      console.error('Failed to fetch posts from API:', response.status, response.statusText, errorText);
+      throw new Error(`Failed to fetch posts from API: ${response.status} ${response.statusText}`);
     }
     const data = await response.json();
-    return data.data.map((post: any): Post => ({
-      id: post.id,
-      title: post.title,
-      subtitle: post.subtitle,
-      thumbnail_url: post.thumbnail_url,
-      slug: post.slug,
-      web_url: post.web_url,
-      publish_date: post.publish_date,
-      content: post.content,
-    }));
+    console.log(`Successfully fetched ${data.data.length} posts`);
+
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    const filteredPosts = data.data
+      .filter((post: any) => post.publish_date <= currentTimestamp)
+      .map((post: any): Post => ({
+        id: post.id,
+        title: post.title,
+        meta_default_description: post.meta_default_description,
+        thumbnail_url: post.thumbnail_url,
+        slug: post.slug,
+        web_url: post.web_url,
+        publish_date: post.publish_date,
+        content: post.content,
+      }));
+
+    return numericLimit > 0 ? filteredPosts.slice(0, numericLimit) : filteredPosts;
+
   } catch (error) {
     console.error('Error fetching posts:', error);
     throw error;
   }
-}
-
-export async function fetchPostBySlug(slug: string): Promise<Post | null> {
-  const posts = await fetchPosts({ expand: ['free_web_content'] });
-  return posts.find(post => post.slug === slug) || null;
-}
-
-export async function fetchLatestPost(): Promise<Post | null> {
-  const posts = await fetchPosts({ limit: '1', expand: ['free_web_content'] });
-  return posts[0] || null;
 }

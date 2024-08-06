@@ -39,7 +39,22 @@
     @apply border-border;
     font-family: var(--font-lars-regular);
   }
+
   body {
     @apply bg-off-white text-dark-blue;
   }
+}
+
+.trusted-by-swiper {
+  overflow: visible;
+}
+
+.trusted-by-swiper .swiper-wrapper {
+  transition-timing-function: linear;
+}
+
+.trusted-by-list {
+  -webkit-transition-timing-function: linear !important;
+  -o-transition-timing-function: linear !important;
+  transition-timing-function: linear !important;
 }

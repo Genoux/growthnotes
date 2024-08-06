@@ -4,18 +4,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
+export const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/posts", label: "Archive" },
+  { href: "/posts/latest", label: "Latest Issue" },
+];
+
 export default function NavigationBar() {
   const pathname = usePathname();
-
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/posts", label: "Archive" },
-    { href: "/posts/latest", label: "Latest Issue" },
-  ];
-
   return (
     <nav className="py-4 top-0 left-0 right-0 z-50 backdrop-blur-sm bg-off-white border-b">
-      <div className='max-w-7xl mx-auto flex w-full items-center justify-between'>
+      <div className='container flex w-full items-center justify-between'>
         <div className="flex items-center">
           <Link href="/">
             <Image
@@ -24,6 +23,7 @@ export default function NavigationBar() {
               width={150}
               height={40}
               priority
+              className='w-auto h-auto flex mx-auto object-contain'
             />
           </Link>
         </div>
