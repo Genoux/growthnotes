@@ -1,42 +1,29 @@
 'use client'
-
-import { usePostBySlug } from '@/app/hooks/usePosts'
-import { notFound } from 'next/navigation'
+import React from 'react'
+import { usePost } from '@/app/hooks/usePosts'
+import PostContent from '@/app/components/PostContent'
+import { format, fromUnixTime } from 'date-fns'
+import SubscriptionBanner from '@/app/components/SubscriptionBanner'
+import ReadingProgressBar from '@/app/components/ReadingProgressBar'
+import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
 export default function PostPage({ params }: { params: { slug: string } }) {
-  const { data: post, isLoading, error } = usePostBySlug(params.slug)
-
-  if (isLoading) {
-    return <PostSkeleton />
-  }
-
-  if (error) {
-    console.error('Error fetching post:', error)
-    return <div>Error loading post. Please try again later.</div>
-  }
-
-  if (!post) {
-    notFound()
-  }
+  const { data: post, isLoading, error } = usePost(params.slug)
 
   return (
-    <article className="max-w-3xl mx-auto mt-8 px-4">
-      <div dangerouslySetInnerHTML={{ __html: post.content!.free!.web || '' }} />
-    </article>
-  )
-}
-
-function PostSkeleton() {
-  return (
-    <div className="max-w-3xl mx-auto mt-8 px-4 animate-pulse">
-      <div className="h-10 bg-gray-200 rounded w-3/4 mb-4"></div>
-      <div className="h-4 bg-gray-200 rounded w-1/4 mb-8"></div>
-      <div className="h-64 bg-gray-200 rounded w-full mb-6"></div>
-      <div className="space-y-4">
-        {[...Array(6)].map((_, i) => (
-          <div key={i} className="h-4 bg-gray-200 rounded w-full"></div>
-        ))}
+    <section className='container py-20 flex flex-col gap-8'>
+      <div className='flex justify-between items-end border-b pb-3 w-3/4 mx-auto'>
+          <Link href='/posts' className='flex items-center gap-2 hover:-translate-x-2 transition-all'>
+            <ArrowLeft size={24} />
+            <h1 className='text-3xl font-bold-condensed'>Archive</h1>
+          </Link>
+        {post && <p className='font-bold-condensed text-xl uppercase'>{format(fromUnixTime(Number(post.publish_date)), 'MMMM d, yyyy')}</p>}
       </div>
-    </div>
+      <ReadingProgressBar>
+        <PostContent post={post} isLoading={isLoading} error={error} />
+      </ReadingProgressBar>
+      <SubscriptionBanner className='mt-12' />
+    </section>
   )
 }

@@ -8,9 +8,10 @@ import { Skeleton } from '@/app/components/ui/skeleton'
 type PostCardProps = {
   post?: Post
   isLoading?: boolean
+  newPost?: boolean
 }
 
-export default function PostCard({ post, isLoading = false }: PostCardProps) {
+export default function PostCard({ post, isLoading = false, newPost = false }: PostCardProps) {
   if (isLoading) {
     return <PostCardSkeleton />
   }
@@ -24,8 +25,11 @@ export default function PostCard({ post, isLoading = false }: PostCardProps) {
         whileTap={{ x: -1, y: -1, boxShadow: '2px 2px 0px #000' }}
         transition={{ duration: 0.12 }}
         className="outline outline-[1px] outline-primary p-4 rounded-lg bg-white hover:outline-[3px] overflow-hidden min-h-[450px]">
-        <div className='flex flex-col items-start gap-2'>
-          <p className='font-bold-condensed'>{format(fromUnixTime(Number(post.publish_date)), 'MMMM d, yyyy')}</p>
+        <div className='flex flex-col items-start gap-4'>
+          <div className='flex items-center gap-2 justify-between w-full'>
+            <p className='font-bold-condensed'>{format(fromUnixTime(Number(post.publish_date)), 'MMMM d, yyyy')}</p>
+            {newPost && <p className='font-bold-condensed text-white bg-orange rounded-full px-3 py-0.5 text-sm'>New</p>}
+          </div>
           <h3 className="text-3xl font-bold-condensed">{post.title}</h3>
           {post.thumbnail_url && (
             <Image
@@ -36,7 +40,7 @@ export default function PostCard({ post, isLoading = false }: PostCardProps) {
               className="w-full object-cover border border-primary border-opacity-10 h-[200px]"
             />
           )}
-          <p>{post.meta_default_description}</p>
+          <p> {post.meta_default_description!.length > 120 ? post.meta_default_description!.substring(0,120) + '...' : post.meta_default_description}</p>
         </div>
       </motion.div>
     </Link>
