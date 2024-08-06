@@ -7,7 +7,7 @@ export async function fetchPosts({
   direction = 'desc',
   audience = 'free',
   status = 'confirmed',
-  expand = [],
+  expand = ['free_web_content'],
 }: FetchPostsParams = {}): Promise<Post[]> {
   try {
     const publicationId = process.env.PUBLICATION_ID;
