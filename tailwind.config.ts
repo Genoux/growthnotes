@@ -14,7 +14,11 @@ const config = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
       },
     },
     extend: {
@@ -61,6 +65,7 @@ const config = {
         'yellow': '#FFE366',
         'blue': '#3A88FF',
         'light-green': '#D6DBC9',
+        'lighter-green': '#D8ECEF',
         'dark-purple': '#190F29',
         'off-white': '#F9F7F7',
       },

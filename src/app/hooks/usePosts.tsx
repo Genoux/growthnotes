@@ -1,6 +1,5 @@
-
 import { useQuery } from '@tanstack/react-query'
-import { fetchPosts, fetchPostBySlug, fetchLatestPost } from '@/app/lib/posts/actions'
+import { fetchPosts } from '@/app/lib/posts/actions'
 import { Post, FetchPostsParams } from '@/app/lib/posts/types'
 
 export function usePosts(params: FetchPostsParams = {}) {
@@ -14,13 +13,19 @@ export function usePosts(params: FetchPostsParams = {}) {
 export function usePostBySlug(slug: string) {
   return useQuery<Post | null>({
     queryKey: ['post', slug],
-    queryFn: () => fetchPostBySlug(slug),
+    queryFn: async () => {
+      const posts = await fetchPosts({ limit: '1', expand: ['stats'] })
+      return posts.find(post => post.slug === slug) || null
+    }
   })
 }
 
 export function useLatestPost() {
   return useQuery<Post | null>({
     queryKey: ['latest_post'],
-    queryFn: () => fetchLatestPost(),
+    queryFn: async () => {
+      const posts = await fetchPosts({ limit: '1', expand: ['stats'] })
+      return posts[0] || null
+    }
   })
 }

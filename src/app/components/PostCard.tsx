@@ -2,6 +2,8 @@ import { Post } from '@/app/lib/posts/types'
 import Link from 'next/link'
 import Image from 'next/image'
 import { format, fromUnixTime } from 'date-fns'
+import { motion } from 'framer-motion'
+import { Skeleton } from '@/app/components/ui/skeleton'
 
 type PostCardProps = {
   post?: Post
@@ -16,34 +18,43 @@ export default function PostCard({ post, isLoading = false }: PostCardProps) {
   if (!post) return null
 
   return (
-    <div className="border p-4 rounded-lg shadow-md">
-      <p>Published on {format(fromUnixTime(Number(post.publish_date)), 'MMMM d, yyyy')}</p>
-      {post.thumbnail_url && (
-        <Image
-          src={post.thumbnail_url !== 'string' ? post.thumbnail_url : 'https://tinyurl.com/25ks83w3'}
-          alt={post.title}
-          width={420}
-          height={250}
-          className="w-full object-cover border border-primary border-opacity-10"
-        />
-      )}
-      <h2 className="text-xl font-bold mt-2">{post.title}</h2>
-      <p className="mt-2">{post.subtitle}</p>
-      <Link href={`/posts/${post.slug}`} className="text-blue-500 hover:underline mt-2 inline-block">
-        Read more
-      </Link>
-    </div>
+    <Link href={`/posts/${post.slug}`} className='h-full' >
+      <motion.div
+        whileHover={{ x: -2, y: -4, boxShadow: '8px 8px 0px #000' }}
+        whileTap={{ x: -1, y: -1, boxShadow: '2px 2px 0px #000' }}
+        transition={{ duration: 0.12 }}
+        className="outline outline-[1px] outline-primary p-4 rounded-xl bg-white hover:outline-[3px] overflow-hidden min-h-[430px]">
+        <div className='flex flex-col items-start gap-2'>
+          <p className='font-bold-condensed'>{format(fromUnixTime(Number(post.publish_date)), 'MMMM d, yyyy')}</p>
+          <h3 className="text-3xl font-bold-condensed">{post.title}</h3>
+          {post.thumbnail_url && (
+            <Image
+              src={post.thumbnail_url !== 'string' ? post.thumbnail_url : 'https://tinyurl.com/25ks83w3'}
+              alt={post.title}
+              width={420}
+              height={250}
+              className="w-full object-cover border border-primary border-opacity-10 h-[200px]"
+            />
+          )}
+          <p>{post.meta_default_description}</p>
+        </div>
+      </motion.div>
+    </Link>
   )
 }
 
 function PostCardSkeleton() {
   return (
-    <div className="border p-4 rounded-lg shadow-md animate-pulse">
-      <div className="w-32 h-4 bg-gray-200 mb-4"></div>
-      <div className="w-full h-40 bg-gray-200 mb-4"></div>
-      <div className="w-3/4 h-6 bg-gray-200 mb-2"></div>
-      <div className="w-full h-4 bg-gray-200 mb-2"></div>
-      <div className="w-1/4 h-4 bg-gray-200"></div>
+    <div className="border border-primary p-4 rounded-xl bg-white flex flex-col items-start gap-2 min-h-[430px]">
+      <Skeleton className="w-[100px] h-[16px] rounded-full bg-neutral-200 mb-2" />
+      <Skeleton className="w-full h-[20px] rounded-full bg-neutral-200" />
+      <Skeleton className="w-3/4 h-[20px] rounded-full bg-neutral-200" />
+      <Skeleton className="w-full h-[200px] rounded-xl bg-neutral-200 mt-2" />
+      <div className='h-[72px] flex flex-col items-start gap-2 w-full'>
+        <Skeleton className="w-3/4 h-full rounded-full bg-neutral-200" />
+        <Skeleton className="w-full h-full rounded-full bg-neutral-200" />
+        <Skeleton className="w-2/4 h-full rounded-full bg-neutral-200" />
+      </div>
     </div>
   );
 }
