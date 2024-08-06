@@ -14,7 +14,7 @@ export function usePostBySlug(slug: string) {
   return useQuery<Post | null>({
     queryKey: ['post', slug],
     queryFn: async () => {
-      const posts = await fetchPosts({ limit: '1', expand: ['stats'] })
+      const posts = await fetchPosts({ limit: '1' })
       return posts.find(post => post.slug === slug) || null
     }
   })
