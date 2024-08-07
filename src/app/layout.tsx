@@ -5,6 +5,7 @@ import { fontVariables } from '@/fonts';
 import { Toaster } from "@/app/components/ui/toaster"
 import NavigationBar from '@/app/components/NavigationBar';
 import Footer from '@/app/components/Footer';
+import { SubscriptionProvider } from '@/app/context/SubscriptionContext';
 
 export const metadata: Metadata = {
   title: "Growthnotes",
@@ -20,9 +21,11 @@ export default function RootLayout({
     <html lang="en" className={fontVariables}>
       <body>
         <Providers>
-          <NavigationBar />
-          {children}
-          <Footer />
+          <SubscriptionProvider>
+            <NavigationBar />
+            {children}
+            <Footer />
+          </SubscriptionProvider>
         </Providers>
         <Toaster />
       </body>

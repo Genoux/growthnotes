@@ -13,7 +13,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
 
   return (
     <section className='container py-20 flex flex-col gap-8'>
-      <div className='flex justify-between items-end border-b pb-3 w-3/4 mx-auto'>
+      <div className='flex justify-between items-end border-b pb-3 w-full mx-auto'>
           <Link href='/posts' className='flex items-center gap-2 hover:-translate-x-2 transition-all'>
             <ArrowLeft size={24} />
             <h1 className='text-3xl font-bold-condensed'>Archive</h1>
