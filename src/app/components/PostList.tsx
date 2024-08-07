@@ -10,7 +10,7 @@ interface PostListProps {
 }
 
 export default function PostList({ limit, className = '' }: PostListProps) {
-  const { data: posts, isLoading, isFetching, error, refetch } = usePosts({ limit })
+  const { data: posts, isLoading, isFetching, error, refetch } = usePosts()
 
   if (error) {
     return (
@@ -32,15 +32,15 @@ export default function PostList({ limit, className = '' }: PostListProps) {
     <div className={`grid gap-6 ${className}`}>
       {isLoading
         ? Array.from({ length: skeletonCount }, (_, index) => (
-            <PostCard key={`skeleton-${index}`} isLoading={true} />
-          ))
+          <PostCard key={`skeleton-${index}`} isLoading={true} />
+        ))
         : displayPosts.map((post, index) => (
-            <PostCard 
-              key={post.id} 
-              post={post} 
-              newPost={index === 0} 
-            />
-          ))
+          <PostCard
+            key={post.id}
+            post={post}
+            newPost={index === 0}
+          />
+        ))
       }
     </div>
   )

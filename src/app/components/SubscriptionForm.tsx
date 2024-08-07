@@ -1,69 +1,101 @@
-// TODO: When a user subscribe and showCheck is true; All the other form should display as showCheck
-
 'use client'
-import { useState } from 'react'
-import { useFormStatus } from 'react-dom'
+import { useState, FormEvent } from 'react'
 import { Input } from "@/app/components/ui/input"
 import { Button } from "@/app/components/ui/button"
 import { submitSubscription } from '@/app/lib/subscription/actions'
 import { useToast } from "@/app/components/ui/use-toast"
 import { CheckIcon } from "lucide-react"
 import clsx from 'clsx'
+import { useSubscription } from '@/app/context/SubscriptionContext'
+import { LoadingCircle } from '@/app/components/LoadingCircle'
+import { motion, AnimatePresence } from 'framer-motion'
 
-function SubmitButton({ showCheck }: { showCheck: boolean }) {
-  const { pending } = useFormStatus()
-
+function FormContent({ email, setEmail }: { email: string, setEmail: (value: string) => void }) {
+  const { isSubscribed, isLoading } = useSubscription()
   return (
-    <Button
-      type="submit"
-      disabled={pending}
-      className={`rounded-full text-lg font-medium h-full min-w-[150px] ${showCheck ? 'outline outline-[3px] outline-primary  w-full bg-transparent text-primary-foreground pointer-events-none' : ''}`}
-    >
-      {pending && !showCheck ? 'Subscribing...' : (showCheck ? <CheckIcon className="h-6 w-6 text-primary" /> : 'Subscribe')}
-    </Button>
+    <>
+      <Input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        className='rounded-full h-full outline outline-[2px] outline-primary text-base focus:outline-[2px] text-primary pl-6'
+        value={email}
+        disabled={isSubscribed || isLoading}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <Button
+        type="submit"
+        disabled={isLoading}
+        className={`rounded-full text-lg font-medium h-full w-[180px] ${isSubscribed ? 'pointer-events-none' : ''}`}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={isLoading ? 'loading' : isSubscribed ? 'check' : 'subscribe'}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.12 }}
+          >
+            {isLoading ? (
+              <LoadingCircle size={18} thickness={2} color="currentColor" />
+            ) : isSubscribed ? (
+              <CheckIcon className="h-6 w-6" />
+            ) : (
+              'Subscribe'
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </Button>
+    </>
   )
 }
 
 interface SubscriptionFormProps {
-  onSubmitError?: (error: string) => void
   className?: string
 }
 
-export default function SubscriptionForm({ onSubmitError, className = '' }: SubscriptionFormProps) {
+export default function SubscriptionForm({ className = '' }: SubscriptionFormProps) {
   const [email, setEmail] = useState('')
-  const [showCheck, setShowCheck] = useState(false)
+  const { isSubscribed, setIsSubscribed, setIsLoading } = useSubscription()
   const { toast } = useToast()
 
-  const handleSubmit = async (formData: FormData) => {
-    if (showCheck) return
-    const result = await submitSubscription(formData)
-    if (result.success) {
-      setEmail('')
-      setShowCheck(true)
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isSubscribed) return;
+    setIsLoading(true);
+    try {
+      const formData = new FormData(event.currentTarget);
+      const result = await submitSubscription(formData);
+      if (result.success) {
+        setEmail(''); // Reset email input
+        setIsSubscribed(true);
+        toast({
+          title: "Subscribed!",
+          description: "Check your inbox for the confirmation email.",
+          className: "shadow-hard border-[3px] bg-yellow text-center",
+        });
+        setTimeout(() => {
+          setIsSubscribed(false);
+        }, 5000);
+      } else {
+        throw new Error(result.error?.message || "Subscription failed");
+      }
+    } catch (error) {
       toast({
-        title: "Subscribed!",
-        description: "You've successfully subscribed to our newsletter.",
-        className: "shadow-hard border-2 bg-yellow text-center",
-      })
-    } else {
-      onSubmitError?.(result.error || 'An error occurred')
+        title: "Subscription Failed",
+        description: error instanceof Error ? error.message : "An unexpected error occurred",
+        variant: "destructive",
+        className: "bg-red-500 border-primary border-[3px] text-center",
+      });
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
-    <form action={handleSubmit} className={clsx('flex gap-2 h-14', className)}>
-      {!showCheck && (
-        <Input
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-          className='rounded-full h-full outline outline-[3px] outline-primary text-base focus:outline-[3px] text-primary pl-6'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      )}
-      <SubmitButton showCheck={showCheck} />
+    <form onSubmit={handleSubmit} className={clsx('flex gap-2 h-14', className)}>
+      <FormContent email={email} setEmail={setEmail} />
     </form>
   )
 }

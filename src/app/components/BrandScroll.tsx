@@ -1,5 +1,4 @@
 'use client'
-
 import 'swiper/css';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,12 +10,17 @@ const brands = [
   'cycle', 'crispin'
 ];
 
-const BrandScroll = () => {
+interface BrandScrollProps {
+  slidesPerView?: number;
+  className?: string;
+}
+
+const BrandScroll: React.FC<BrandScrollProps> = ({ slidesPerView = 8, className = '' }) => {
   return (
-    <div className="relative overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+    <div className={`relative overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] ${className}`}>
       <Swiper
         modules={[Autoplay]}
-        slidesPerView={8}
+        slidesPerView={slidesPerView}
         loop={true}
         speed={2000}
         autoplay={{
@@ -26,19 +30,19 @@ const BrandScroll = () => {
         }}
         breakpoints={{
           0: {
-            slidesPerView: 3,
+            slidesPerView: Math.min(3, slidesPerView),
             spaceBetween: 10,
           },
           480: {
-            slidesPerView: 4,
+            slidesPerView: Math.min(4, slidesPerView),
             spaceBetween: 15,
           },
           767: {
-            slidesPerView: 6,
+            slidesPerView: Math.min(6, slidesPerView),
             spaceBetween: 0,
           },
           992: {
-            slidesPerView: 8,
+            slidesPerView: slidesPerView,
             spaceBetween: 0,
           }
         }}

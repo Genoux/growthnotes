@@ -11,11 +11,11 @@ import { Post } from '@/app/lib/posts/types';
 
 const Footer = () => {
   const limit = '3'
-  const { data: latestPosts, isLoading, error } = usePosts({ limit })
+  const { data: latestPosts, isLoading, error } = usePosts()
 
   return (
     <div>
-      <footer className="border-y py-40">
+      <footer className="border-y py-32">
         <div className="container grid grid-cols-2 gap-40">
           <div className='flex flex-col items-start gap-8 w-full'>
             <Image

@@ -12,7 +12,6 @@ export const navLinks = [
 
 export default function NavigationBar() {
   const pathname = usePathname();
-
   const activeLink = useMemo(() => {
     if (pathname === '/') return '/';
     if (pathname.startsWith('/posts') && pathname !== '/posts/latest') return '/posts';
@@ -20,19 +19,19 @@ export default function NavigationBar() {
   }, [pathname]);
 
   return (
-    <nav className="py-4 top-0 left-0 right-0 z-50 backdrop-blur-sm bg-off-white border-b">
-      <div className='container flex w-full items-center justify-between'>
-        <Link href="/">
+    <nav className="top-0 left-0 right-0 z-50 backdrop-blur-sm bg-off-white border-b py-4">
+      <div className='container flex w-full items-stretch justify-between h-10'>
+        <Link href="/" className='flex items-center'>
           <Image
             src="/growthnotes.svg"
             alt="GrowthNotes Logo"
             width={150}
             height={40}
             priority
-            className='w-auto h-auto flex mx-auto object-contain'
+            className='w-auto h-auto flex my-auto object-contain'
           />
         </Link>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-stretch space-x-3">
           {navLinks.map(({ href, label }) => (
             <NavLink key={href} href={href} active={activeLink === href}>
               {label}
@@ -40,7 +39,7 @@ export default function NavigationBar() {
           ))}
           <Link
             href="/subscribe"
-            className="bg-orange hover:opacity-95 text-white text-md font-semibold py-2 px-4 rounded-full"
+            className="bg-orange hover:opacity-95 text-white text-md font-medium px-4 rounded-full flex items-center transition-transform hover:scale-105 active:scale-95"
           >
             Subscribe
           </Link>
@@ -61,10 +60,10 @@ const NavLink = ({ href, active, children }: NavLinkProps) => (
     href={href}
     prefetch={true}
     className={`
-      text-gray-900 px-4 py-2 rounded-full border border-black 
-      ${active 
-        ? 'bg-black bg-opacity-10 border-opacity-100 cursor-auto' 
-        : 'font-normal border-opacity-0 hover:border-opacity-100'}
+      text-gray-900 px-3 flex items-center rounded-full
+      ${active
+        ? 'bg-black bg-opacity-10 cursor-auto'
+        : 'font-normal border-opacity-0 hover:bg-black hover:bg-opacity-10'}
     `}
   >
     {children}
