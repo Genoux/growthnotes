@@ -16,7 +16,7 @@ export default function Home() {
           <div className='grid grid-cols-2 items-center'>
             <div className='flex flex-col w-full gap-6'>
               <h1 className='text-7xl font-bold-condensed -tracking-[0.275rem] w-full'>INSIGHTS FOR THE MODERN MARKETER</h1>
-              <p className='text-xl leading-snug'>We deliver weekly, data-driven analysis and practical strategies to over 70,000 e-commerce experts.</p>
+              <p className='text-xl leading-snug'>We deliver monthly, data-driven analysis and practical strategies to over 30,000 e-commerce experts. </p>
               <SubscriptionForm />
             </div>
             <Image src="/grid-blob.svg" alt="GN Blob" width={400} height={420} className='ml-auto w-3/4 h-auto flex object-contain' />

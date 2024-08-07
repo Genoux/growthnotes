@@ -11,7 +11,7 @@ import { Post } from '@/app/lib/posts/types';
 
 const Footer = () => {
   const limit = '3'
-  const { data: latestPosts, isLoading, error } = usePosts()
+  const { data: latestPosts, isLoading, error } = usePosts({ limit })
 
   return (
     <div>
