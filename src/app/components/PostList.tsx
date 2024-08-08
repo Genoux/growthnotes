@@ -10,7 +10,7 @@ interface PostListProps {
 }
 
 export default function PostList({ limit, className = '' }: PostListProps) {
-  const { data: posts, isLoading, isFetching, error, refetch } = usePosts()
+  const { data: posts, isLoading, isFetching, error, refetch } = usePosts({ limit })
 
   if (error) {
     return (

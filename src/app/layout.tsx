@@ -5,7 +5,7 @@ import { fontVariables } from '@/fonts';
 import { Toaster } from "@/app/components/ui/toaster"
 import NavigationBar from '@/app/components/NavigationBar';
 import Footer from '@/app/components/Footer';
-import { SubscriptionProvider } from '@/app/context/SubscriptionContext';
+import { SubscriptionProvider } from '@/app/contexts/SubscriptionContext';
 
 export const metadata: Metadata = {
   title: "Growthnotes",

@@ -6,7 +6,7 @@ import { submitSubscription } from '@/app/lib/subscription/actions'
 import { useToast } from "@/app/components/ui/use-toast"
 import { CheckIcon } from "lucide-react"
 import clsx from 'clsx'
-import { useSubscription } from '@/app/context/SubscriptionContext'
+import { useSubscription } from '@/app/contexts/SubscriptionContext'
 import { LoadingCircle } from '@/app/components/LoadingCircle'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -52,10 +52,11 @@ function FormContent({ email, setEmail }: { email: string, setEmail: (value: str
 }
 
 interface SubscriptionFormProps {
-  className?: string
+  className?: string;
+  onSuccess?: () => void;
 }
 
-export default function SubscriptionForm({ className = '' }: SubscriptionFormProps) {
+export default function SubscriptionForm({ className = '', onSuccess }: SubscriptionFormProps) {
   const [email, setEmail] = useState('')
   const { isSubscribed, setIsSubscribed, setIsLoading } = useSubscription()
   const { toast } = useToast()
@@ -68,7 +69,7 @@ export default function SubscriptionForm({ className = '' }: SubscriptionFormPro
       const formData = new FormData(event.currentTarget);
       const result = await submitSubscription(formData);
       if (result.success) {
-        setEmail(''); // Reset email input
+        setEmail('');
         setIsSubscribed(true);
         toast({
           title: "Subscribed!",
@@ -78,6 +79,10 @@ export default function SubscriptionForm({ className = '' }: SubscriptionFormPro
         setTimeout(() => {
           setIsSubscribed(false);
         }, 5000);
+        
+        if (onSuccess) {
+          onSuccess();
+        }
       } else {
         throw new Error(result.error?.message || "Subscription failed");
       }

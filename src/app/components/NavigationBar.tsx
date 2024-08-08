@@ -2,7 +2,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
+import SubscriptionPopup from '@/app/components/SubscriptionPopup';
 
 export const navLinks = [
   { href: "/", label: "Home" },
@@ -11,41 +12,49 @@ export const navLinks = [
 ] as const;
 
 export default function NavigationBar() {
+  const [showPopup, setShowPopup] = useState(false);
   const pathname = usePathname();
+
   const activeLink = useMemo(() => {
     if (pathname === '/') return '/';
     if (pathname.startsWith('/posts') && pathname !== '/posts/latest') return '/posts';
     return pathname;
   }, [pathname]);
 
+  const handleOpenPopup = useCallback(() => setShowPopup(true), []);
+  const handleClosePopup = useCallback(() => setShowPopup(false), []);
+
   return (
-    <nav className="top-0 left-0 right-0 z-50 backdrop-blur-sm bg-off-white border-b py-4">
-      <div className='container flex w-full items-stretch justify-between h-10'>
-        <Link href="/" className='flex items-center'>
-          <Image
-            src="/growthnotes.svg"
-            alt="GrowthNotes Logo"
-            width={150}
-            height={40}
-            priority
-            className='w-auto h-auto flex my-auto object-contain'
-          />
-        </Link>
-        <div className="flex items-stretch space-x-3">
-          {navLinks.map(({ href, label }) => (
-            <NavLink key={href} href={href} active={activeLink === href}>
-              {label}
-            </NavLink>
-          ))}
-          <Link
-            href="/subscribe"
-            className="bg-orange hover:opacity-95 text-white text-md font-medium px-4 rounded-full flex items-center transition-transform hover:scale-105 active:scale-95"
-          >
-            Subscribe
+    <>
+      <nav className="top-0 left-0 right-0 z-50 backdrop-blur-sm bg-off-white border-b py-4">
+        <div className='container flex w-full items-stretch justify-between h-10'>
+          <Link href="/" className='flex items-center'>
+            <Image
+              src="/growthnotes.svg"
+              alt="GrowthNotes Logo"
+              width={150}
+              height={40}
+              priority
+              className='w-auto h-auto flex my-auto object-contain'
+            />
           </Link>
+          <div className="flex items-stretch space-x-3">
+            {navLinks.map(({ href, label }) => (
+              <NavLink key={href} href={href} active={activeLink === href}>
+                {label}
+              </NavLink>
+            ))}
+            <button
+              onClick={handleOpenPopup}
+              className="bg-orange hover:opacity-95 text-white text-md font-medium px-4 rounded-full flex items-center transition-transform hover:scale-105 active:scale-95"
+            >
+              Subscribe
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+      <SubscriptionPopup isOpen={showPopup} onClose={handleClosePopup} />
+    </>
   );
 }
 
