@@ -28,7 +28,7 @@ const ReadingProgressBar: React.FC<ReadingProgressBarProps> = ({ children }) => 
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-orange z-50 origin-left"
+        className="fixed top-0 left-0 right-0 h-1 bg-orange z-50 origin-left z-20"
         style={{ scaleX }}
       />
       <div ref={contentRef}>
