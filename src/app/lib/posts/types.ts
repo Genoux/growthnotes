@@ -10,20 +10,16 @@ export type Post = {
     free?: {
       web?: string;
     };
-    premium?: {
-      web?: string;
-    };
   };
 }
 
-type expand = 'free_web_content' | 'premium_web_content' | 'stats';
+type expand = 'free_web_content';
 
 export type FetchPostsParams = {
-  limit?: string;
+  limit?: number;
   orderBy?: string;
   direction?: 'asc' | 'desc';
   audience?: string;
   expand?: expand[];
   status?: string;
-  slug?: string;
 }

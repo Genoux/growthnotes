@@ -10,8 +10,7 @@ import { Skeleton } from '@/app/components/ui/skeleton';
 import { Post } from '@/app/lib/posts/types';
 
 const Footer = () => {
-  const limit = '3'
-  const { data: latestPosts, isLoading, error } = usePosts({ limit })
+  const { data: latestPosts, isLoading, error } = usePosts(3)
 
   return (
     <div>
@@ -56,7 +55,7 @@ const Footer = () => {
             <div>
               <h3 className="text-xl font-semibold mb-4">Latest Post</h3>
               {isLoading ? (
-                Array(Number(limit)).fill(0).map((_, index) => (
+                Array(Number(3)).fill(0).map((_, index) => (
                   <Skeleton key={index} className="w-[228px] h-5 rounded-full bg-neutral-200 mb-2" />
                 ))
               ) : error ? (

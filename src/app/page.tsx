@@ -31,7 +31,7 @@ export default function Home() {
             <Button className='bg-lighter-green text-primary border border-primary rounded-full hover:bg-lighter-green/70'>View All</Button>
           </Link>
         </div>
-        <PostList limit={'3'} className="grid-cols-3" />
+        <PostList limit={3} className="grid-cols-3" />
       </section>
       <section className='border-y'>
         <div className=' container flex items-center h-full border-r'>
