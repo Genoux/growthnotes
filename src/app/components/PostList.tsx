@@ -19,7 +19,7 @@ export default function PostList({ limit, className = '', paginated = false, pos
   const [initialLoading, setInitialLoading] = useState(true);
   const paginatedResult = usePostsPaginated(page, postsPerPage);
   const nonPaginatedResult = usePosts(limit);
-  const { data: posts, isLoading, error, refetch, totalPages } = paginated ? paginatedResult : nonPaginatedResult;
+  const { data: posts, isLoading, error, isFetching, refetch, totalPages } = paginated ? paginatedResult : nonPaginatedResult;
 
   const [showPagination, setShowPagination] = useState(false);
   const [isInView, setIsInView] = useState(true);
@@ -59,14 +59,14 @@ export default function PostList({ limit, className = '', paginated = false, pos
     };
   }, [handleIntersection, handleScroll]);
 
-  if (error) {
+  if (error || posts?.length === 0) {
     return (
       <div className='border border-primary border-opacity-20 p-20 items-center flex flex-col gap-6 justify-center opacity-90 text-primary h-full min-h-[450px]'>
-        <h2>Error loading posts. Please try again.</h2>
+        <h2>{error ? 'Error loading posts. Please try again.' : 'No posts found.'}</h2>
         <RefreshCcw
           onClick={() => refetch()}
           className={clsx('h-5 w-5 transition-all hover:-rotate-45 cursor-pointer',
-            { 'animate-spin direction-reverse pointer-events-none': isLoading })}
+            { 'animate-spin direction-reverse pointer-events-none': isFetching })}
         />
       </div>
     )

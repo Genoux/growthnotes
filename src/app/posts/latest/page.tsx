@@ -18,7 +18,7 @@ export default function LatestPostPage() {
       <ReadingProgressBar>
         <PostContent post={post} isLoading={isLoading} error={error} />
       </ReadingProgressBar>
-      <SubscriptionBanner className='my-20' />
+      <SubscriptionBanner className='mt-12' />
     </section>
   )
 }
