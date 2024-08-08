@@ -1,13 +1,13 @@
 'use client'
 import React from 'react'
-import { usePost } from '@/app/hooks/usePosts'
+import { useSinglePost } from '@/app/hooks/usePosts'
 import PostContent from '@/app/components/PostContent'
 import { format, fromUnixTime } from 'date-fns'
 import SubscriptionBanner from '@/app/components/SubscriptionBanner'
 import ReadingProgressBar from '@/app/components/ReadingProgressBar'
 
 export default function LatestPostPage() {
-  const { data: post, isLoading, error } = usePost()
+  const { data: post, isLoading, error } = useSinglePost()
 
   return (
     <section className='container py-20 flex flex-col gap-8'>

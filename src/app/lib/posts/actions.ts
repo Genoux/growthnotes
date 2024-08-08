@@ -53,7 +53,7 @@ export async function fetchPosts({
       .map((post: any): Post => ({
         id: post.id,
         title: post.title,
-        meta_default_description: post.meta_default_description,
+        meta_default_description: post.meta_default_description || post.preview_text,
         thumbnail_url: post.thumbnail_url,
         slug: post.slug,
         web_url: post.web_url,
