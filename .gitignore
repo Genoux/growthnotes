@@ -38,3 +38,5 @@ next-env.d.ts
 # Husky
 .husky/_
 husky.local.json
+# Local Netlify folder
+.netlify

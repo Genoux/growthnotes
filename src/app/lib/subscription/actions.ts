@@ -21,17 +21,14 @@ export async function submitSubscription(
 
   const publicationId = process.env.PUBLICATION_ID
   const apiToken = process.env.API_TOKEN
-  if (!publicationId || !apiToken) {
+  const apiUrl = process.env.API_URL
+  if (!publicationId || !apiToken || !apiUrl) {
     console.error('API credentials are not set')
     return { success: false, error: { message: 'Server configuration error' } }
   }
 
   try {
-    const url =
-      process.env.NODE_ENV === 'development'
-        ? `https://stoplight.io/mocks/beehiiv/v2/104190750/publications/${publicationId}/subscriptions`
-        : `https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`
-
+    const url = `${apiUrl}${publicationId}/subscriptions`
     const response = await fetch(url, {
       method: 'POST',
       headers: {

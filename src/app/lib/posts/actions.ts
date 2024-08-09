@@ -17,9 +17,7 @@ export async function fetchPosts({
     }
 
     const url = new URL(
-      process.env.NODE_ENV === 'development'
-        ? `https://stoplight.io/mocks/beehiiv/v2/104190750/publications/${publicationId}/posts`
-        : `https://api.beehiiv.com/v2/publications/${publicationId}/posts`
+      `https://api.beehiiv.com/v2/publications/${publicationId}/posts`
     )
 
     const params = new URLSearchParams({
