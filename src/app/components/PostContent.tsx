@@ -35,10 +35,10 @@ export default function PostContent({
 
 function PostSkeleton() {
   return (
-    <div className="max-w-3xl mx-auto mt-8 px-4 animate-pulse w-full">
+    <div className="w-full md:w-3/4 mx-auto px-4 animate-pulse">
       <Skeleton className="h-10 bg-gray-200 rounded-full w-3/4 mb-4"></Skeleton>
       <Skeleton className="h-4 bg-gray-200 rounded-full w-1/4 mb-8"></Skeleton>
-      <Skeleton className="h-64 bg-gray-200 rounded w-full mb-6"></Skeleton>
+      <Skeleton className="h-64 bg-gray-200 rounded-xl w-full mb-6"></Skeleton>
       <div className="space-y-4">
         {[...Array(6)].map((_, i) => (
           <Skeleton

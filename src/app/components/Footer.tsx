@@ -115,13 +115,15 @@ const Footer = () => {
       </footer>
       <section className="container flex w-full items-center justify-between py-8">
         <p className="text-sm">© All rights reserved – Growthnotes</p>
-        <Image
-          src="/madebyinbeat.svg"
-          alt="Made by InBeat"
-          width={100}
-          height={30}
-          className="w-auto h-auto flex object-contain"
-        />
+        <Link href="https://www.inbeat.co/">
+          <Image
+            src="/madebyinbeat.svg"
+            alt="Made by InBeat"
+            width={100}
+            height={30}
+            className="w-auto h-auto flex object-contain"
+          />
+        </Link>
       </section>
     </div>
   )
