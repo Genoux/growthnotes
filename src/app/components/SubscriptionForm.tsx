@@ -13,12 +13,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 function FormContent({ email, setEmail }: { email: string, setEmail: (value: string) => void }) {
   const { isSubscribed, isLoading } = useSubscription()
   return (
-    <>
+    <div className='flex gap-2 h-14 mx-auto'>
       <Input
         type="email"
         name="email"
         placeholder="Enter your email"
-        className='rounded-full h-full outline outline-[2px] outline-primary text-base focus:outline-[2px] text-primary pl-6'
+        className='placeholder:text-sm sm:placeholder:text-base pl-4 md:pl-6 rounded-full h-full outline outline-[2px] outline-primary text-base focus:outline-[2px] text-primary'
         value={email}
         disabled={isSubscribed || isLoading}
         onChange={(e) => setEmail(e.target.value)}
@@ -27,7 +27,7 @@ function FormContent({ email, setEmail }: { email: string, setEmail: (value: str
       <Button
         type="submit"
         disabled={isLoading}
-        className={`rounded-full text-lg font-medium h-full w-[180px] ${isSubscribed ? 'pointer-events-none' : ''}`}
+        className={`rounded-full text-md font-medium h-full ${isSubscribed ? 'pointer-events-none' : ''}`}
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -47,7 +47,7 @@ function FormContent({ email, setEmail }: { email: string, setEmail: (value: str
           </motion.div>
         </AnimatePresence>
       </Button>
-    </>
+    </div>
   )
 }
 
@@ -99,7 +99,7 @@ export default function SubscriptionForm({ className = '', onSuccess }: Subscrip
   };
 
   return (
-    <form onSubmit={handleSubmit} className={clsx('flex gap-2 h-14', className)}>
+    <form onSubmit={handleSubmit} className={className}>
       <FormContent email={email} setEmail={setEmail} />
     </form>
   )

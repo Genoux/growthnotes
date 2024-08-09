@@ -20,7 +20,7 @@ export default function PostContent({ post, isLoading, error }: PostContentProps
     notFound()
   }
   return (
-    <article className="w-3/4 pt-6 bg-white mx-auto border border-primary rounded-lg overflow-hidden">
+    <article className="w-full md:w-3/4 pt-6 bg-white mx-auto border border-primary rounded-lg overflow-hidden">
       <div
         dangerouslySetInnerHTML={{ __html: post.content?.free?.web || '' }}
         className="prose prose-lg"

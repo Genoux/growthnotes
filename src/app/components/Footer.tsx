@@ -14,9 +14,9 @@ const Footer = () => {
 
   return (
     <div>
-      <footer className="border-y py-32">
-        <div className="container grid grid-cols-2 gap-40">
-          <div className='flex flex-col items-start gap-8 w-full'>
+      <footer className="border-y py-16 md:py-32">
+        <div className="container md:grid flex flex-col grid-cols-2 gap-12 lg:gap-40">
+          <div className='flex flex-col items-start gap-6 w-full'>
             <Image
               src="/growthnotes.svg"
               alt="Growthnotes Logo"
@@ -24,7 +24,7 @@ const Footer = () => {
               height={250}
               className='w-auto h-auto flex object-contain'
             />
-            <SubscriptionForm className='w-full' />
+            <SubscriptionForm className='w-full md:mx-auto' />
             <div className='flex gap-2 flex-wrap'>
               <Link href='https://www.instagram.com/growth__notes/' target='_blank' className='hover:opacity-80'>
                 <Image src='/socials/instagram.svg' alt='Instagram' width={24} height={24} className='w-auto h-auto flex object-contain' />
@@ -38,7 +38,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className='flex w-full justify-end gap-24'>
+          <div className='flex w-full justify-start md:justify-end gap-24 pt-4 md:pt-12 '>
             <div>
               <h3 className="text-xl font-semibold mb-4">Pages</h3>
               <ul className='flex flex-col gap-2'>
@@ -75,8 +75,8 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <section className='container flex w-full items-center justify-between py-8'>
-        <p>© All rights reserved – Growthnotes</p>
+      <section className='container flex sm:flex-row gap-6 sm:gap-0 flex-col-reverse w-full items-center justify-between py-8'>
+        <p className='text-sm'>© All rights reserved – Growthnotes</p>
         <Image src='/madebyinbeat.svg' alt='Made by InBeat' width={100} height={30} className='w-auto h-auto flex object-contain' />
       </section>
     </div>
