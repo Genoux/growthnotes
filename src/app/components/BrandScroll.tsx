@@ -6,9 +6,18 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 
 const brands = [
-  'ogilvy', 'squattypotty', 'bluehousesalmon', 'deloittedigital', 'tbwa',
-  'havasmedia', 'cossette', 'prose', 'adventurereadybrands', 'soylent',
-  'cycle', 'crispin'
+  'ogilvy',
+  'squattypotty',
+  'bluehousesalmon',
+  'deloittedigital',
+  'tbwa',
+  'havasmedia',
+  'cossette',
+  'prose',
+  'adventurereadybrands',
+  'soylent',
+  'cycle',
+  'crispin',
 ]
 
 interface BrandScrollProps {
@@ -17,7 +26,9 @@ interface BrandScrollProps {
 
 const BrandScroll: React.FC<BrandScrollProps> = ({ className = '' }) => {
   return (
-    <div className={`relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_128px,black_calc(100%-128px),transparent)] ${className}`}>
+    <div
+      className={`relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_128px,black_calc(100%-128px),transparent)] ${className}`}
+    >
       <Swiper
         modules={[Autoplay]}
         loop
@@ -30,7 +41,7 @@ const BrandScroll: React.FC<BrandScrollProps> = ({ className = '' }) => {
           0: { slidesPerView: 2, spaceBetween: 10 },
           480: { slidesPerView: 3, spaceBetween: 15 },
           768: { slidesPerView: 4, spaceBetween: 20 },
-          1024: { slidesPerView: 6, spaceBetween: 30 }
+          1024: { slidesPerView: 6, spaceBetween: 30 },
         }}
         className="trusted-by-swiper"
       >

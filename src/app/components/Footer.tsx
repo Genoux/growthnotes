@@ -1,13 +1,13 @@
 'use client'
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { navLinks } from '@/app/components/NavigationBar';
-import SubscriptionForm from './SubscriptionForm';
-import { usePosts } from '@/app/hooks/usePosts';
-import { Skeleton } from '@/app/components/ui/skeleton';
-import { Post } from '@/app/lib/posts/types';
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { navLinks } from '@/app/components/NavigationBar'
+import SubscriptionForm from './SubscriptionForm'
+import { usePosts } from '@/app/hooks/usePosts'
+import { Skeleton } from '@/app/components/ui/skeleton'
+import { Post } from '@/app/lib/posts/types'
 
 const Footer = () => {
   const { data: latestPosts, isLoading, error } = usePosts(3)
@@ -16,37 +16,65 @@ const Footer = () => {
     <div>
       <footer className="border-y py-16 md:py-32">
         <div className="container md:grid flex flex-col grid-cols-2 gap-12 lg:gap-40">
-          <div className='flex flex-col items-start gap-6 w-full'>
+          <div className="flex flex-col items-start gap-6 w-full">
             <Image
               src="/growthnotes.svg"
               alt="Growthnotes Logo"
               width={250}
               height={250}
-              className='w-auto h-auto flex object-contain'
+              className="w-auto h-auto flex object-contain"
             />
-            <SubscriptionForm className='w-full md:mx-auto' />
-            <div className='flex gap-2 flex-wrap'>
-              <Link href='https://www.instagram.com/growth__notes/' target='_blank' className='hover:opacity-80'>
-                <Image src='/socials/instagram.svg' alt='Instagram' width={24} height={24} className='w-auto h-auto flex object-contain' />
+            <SubscriptionForm className="w-full md:mx-auto" />
+            <div className="flex gap-2 flex-wrap">
+              <Link
+                href="https://www.instagram.com/growth__notes/"
+                target="_blank"
+                className="hover:opacity-80"
+              >
+                <Image
+                  src="/socials/instagram.svg"
+                  alt="Instagram"
+                  width={24}
+                  height={24}
+                  className="w-auto h-auto flex object-contain"
+                />
               </Link>
-              <Link href='https://www.tiktok.com/@growthnotes' target='_blank' className='hover:opacity-80'>
-                <Image src='/socials/tiktok.svg' alt='Twitter' width={24} height={24} className='w-auto h-auto flex object-contain' />
+              <Link
+                href="https://www.tiktok.com/@growthnotes"
+                target="_blank"
+                className="hover:opacity-80"
+              >
+                <Image
+                  src="/socials/tiktok.svg"
+                  alt="Twitter"
+                  width={24}
+                  height={24}
+                  className="w-auto h-auto flex object-contain"
+                />
               </Link>
-              <Link href='https://www.youtube.com/@growthnotes5756/search' target='_blank' className='hover:opacity-80'>
-                <Image src='/socials/youtube.svg' alt='LinkedIn' width={24} height={24} className='w-auto h-auto flex object-contain' />
+              <Link
+                href="https://www.youtube.com/@growthnotes5756/search"
+                target="_blank"
+                className="hover:opacity-80"
+              >
+                <Image
+                  src="/socials/youtube.svg"
+                  alt="LinkedIn"
+                  width={24}
+                  height={24}
+                  className="w-auto h-auto flex object-contain"
+                />
               </Link>
             </div>
           </div>
 
-          <div className='flex w-full justify-start md:justify-end gap-24 pt-4 md:pt-12 '>
+          <div className="flex w-full justify-start md:justify-end gap-24 pt-4 md:pt-12 ">
             <div>
               <h3 className="text-xl font-semibold mb-4">Pages</h3>
-              <ul className='flex flex-col gap-2'>
-                {navLinks.map((link) => (
+              <ul className="flex flex-col gap-2">
+                {navLinks.map(link => (
                   <li key={link.href} className="hover:opacity-80">
-                    <Link href={link.href}>
-                      {link.label}
-                    </Link>
+                    <Link href={link.href}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -55,17 +83,27 @@ const Footer = () => {
             <div>
               <h3 className="text-xl font-semibold mb-4">Latest Post</h3>
               {isLoading ? (
-                Array(Number(3)).fill(0).map((_, index) => (
-                  <Skeleton key={index} className="w-[228px] h-5 rounded-full bg-neutral-200 mb-2" />
-                ))
+                Array(Number(3))
+                  .fill(0)
+                  .map((_, index) => (
+                    <Skeleton
+                      key={index}
+                      className="w-[228px] h-5 rounded-full bg-neutral-200 mb-2"
+                    />
+                  ))
               ) : error ? (
                 <p>Error loading latest posts</p>
               ) : (
-                <ul className='flex flex-col gap-2 w-full'>
+                <ul className="flex flex-col gap-2 w-full">
                   {latestPosts?.map((post: Post) => (
                     <li key={post.slug}>
-                      <Link href={`/posts/${post.slug}`} className="hover:opacity-80">
-                        {post.title.length > 30 ? post.title.substring(0, 30) + '...' : post.title}
+                      <Link
+                        href={`/posts/${post.slug}`}
+                        className="hover:opacity-80"
+                      >
+                        {post.title.length > 30
+                          ? post.title.substring(0, 30) + '...'
+                          : post.title}
                       </Link>
                     </li>
                   ))}
@@ -75,12 +113,18 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <section className='container flex sm:flex-row gap-6 sm:gap-0 flex-col-reverse w-full items-center justify-between py-8'>
-        <p className='text-sm'>© All rights reserved – Growthnotes</p>
-        <Image src='/madebyinbeat.svg' alt='Made by InBeat' width={100} height={30} className='w-auto h-auto flex object-contain' />
+      <section className="container flex sm:flex-row gap-6 sm:gap-0 flex-col-reverse w-full items-center justify-between py-8">
+        <p className="text-sm">© All rights reserved – Growthnotes</p>
+        <Image
+          src="/madebyinbeat.svg"
+          alt="Made by InBeat"
+          width={100}
+          height={30}
+          className="w-auto h-auto flex object-contain"
+        />
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

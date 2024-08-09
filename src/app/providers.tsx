@@ -6,9 +6,7 @@ import { SubscriptionProvider } from '@/app/contexts/SubscriptionContext'
 export default function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryProvider>
-      <SubscriptionProvider>
-        {children}
-      </SubscriptionProvider>
+      <SubscriptionProvider>{children}</SubscriptionProvider>
     </QueryProvider>
   )
 }

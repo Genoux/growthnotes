@@ -3,20 +3,22 @@ import { useEffect, useRef, ReactNode } from 'react'
 import { motion, useSpring, useScroll } from 'framer-motion'
 
 interface ReadingProgressBarProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
-const ReadingProgressBar: React.FC<ReadingProgressBarProps> = ({ children }) => {
+const ReadingProgressBar: React.FC<ReadingProgressBarProps> = ({
+  children,
+}) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: contentRef,
-    offset: ['start start', 'end end']
+    offset: ['start start', 'end end'],
   })
 
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 500,
     damping: 32,
-    restDelta: 0.001
+    restDelta: 0.001,
   })
 
   useEffect(() => {
@@ -31,9 +33,7 @@ const ReadingProgressBar: React.FC<ReadingProgressBarProps> = ({ children }) => 
         className="fixed top-0 left-0 right-0 h-1 bg-orange origin-left z-20"
         style={{ scaleX }}
       />
-      <div ref={contentRef}>
-        {children}
-      </div>
+      <div ref={contentRef}>{children}</div>
     </>
   )
 }

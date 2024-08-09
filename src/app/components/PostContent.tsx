@@ -9,7 +9,11 @@ interface PostContentProps {
   error: unknown
 }
 
-export default function PostContent({ post, isLoading, error }: PostContentProps) {
+export default function PostContent({
+  post,
+  isLoading,
+  error,
+}: PostContentProps) {
   if (isLoading) {
     return <PostSkeleton />
   }
@@ -37,13 +41,19 @@ function PostSkeleton() {
       <Skeleton className="h-64 bg-gray-200 rounded w-full mb-6"></Skeleton>
       <div className="space-y-4">
         {[...Array(6)].map((_, i) => (
-          <Skeleton key={i} className={`h-4 bg-gray-200 rounded-full w-${Math.random() > 0.5 ? 'full' : '3/4'}`}></Skeleton>
+          <Skeleton
+            key={i}
+            className={`h-4 bg-gray-200 rounded-full w-${Math.random() > 0.5 ? 'full' : '3/4'}`}
+          ></Skeleton>
         ))}
       </div>
       <Skeleton className="h-64 bg-gray-200 rounded w-full my-6"></Skeleton>
       <div className="space-y-4">
         {[...Array(6)].map((_, i) => (
-          <Skeleton key={i} className={`h-4 bg-gray-200 rounded-full w-${Math.random() > 0.5 ? 'full' : '3/4'}`}></Skeleton>
+          <Skeleton
+            key={i}
+            className={`h-4 bg-gray-200 rounded-full w-${Math.random() > 0.5 ? 'full' : '3/4'}`}
+          ></Skeleton>
         ))}
       </div>
     </div>

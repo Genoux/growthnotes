@@ -1,30 +1,38 @@
 'use client'
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react'
 
 interface SubscriptionContextType {
-  isSubscribed: boolean;
-  setIsSubscribed: (value: boolean) => void;
-  isLoading: boolean;
-  setIsLoading: (value: boolean) => void;
+  isSubscribed: boolean
+  setIsSubscribed: (value: boolean) => void
+  isLoading: boolean
+  setIsLoading: (value: boolean) => void
 }
 
-const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
+const SubscriptionContext = createContext<SubscriptionContextType | undefined>(
+  undefined
+)
 
-export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
-    <SubscriptionContext.Provider value={{ isSubscribed, setIsSubscribed, isLoading, setIsLoading }}>
+    <SubscriptionContext.Provider
+      value={{ isSubscribed, setIsSubscribed, isLoading, setIsLoading }}
+    >
       {children}
     </SubscriptionContext.Provider>
-  );
-};
+  )
+}
 
 export const useSubscription = () => {
-  const context = useContext(SubscriptionContext);
+  const context = useContext(SubscriptionContext)
   if (context === undefined) {
-    throw new Error('useSubscription must be used within a SubscriptionProvider');
+    throw new Error(
+      'useSubscription must be used within a SubscriptionProvider'
+    )
   }
-  return context;
-};
+  return context
+}
