@@ -6,20 +6,12 @@ import Image from 'next/image'
 import BrandScroll from '@/app/components/BrandScroll'
 import { Button } from '@/app/components/ui/button'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { defaultTransition } from '@/app/utils/motionConfig'
 import { useRef } from 'react'
 
 export default function Home() {
   const heroRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  })
-
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.5])
-  const imageOpacity = useTransform(scrollYProgress, [0, 1], [1, 0])
-  const imageRotate = useTransform(scrollYProgress, [0, 1], [0, 40])
 
   return (
     <motion.div
@@ -42,13 +34,7 @@ export default function Home() {
                 </p>
                 <SubscriptionForm className="w-full sm:w-4/5 md:w-full mx-auto" />
               </div>
-              <motion.div
-                style={{
-                  scale: imageScale,
-                  opacity: imageOpacity,
-                  rotate: imageRotate,
-                }}
-              >
+              <div>
                 <Image
                   src="/grid-blob.svg"
                   alt="GN Blob"
@@ -56,7 +42,7 @@ export default function Home() {
                   height={420}
                   className="hidden md:flex ml-auto w-3/4 h-auto object-contain"
                 />
-              </motion.div>
+              </div>
             </div>
             <BrandScroll />
           </div>
