@@ -29,6 +29,7 @@ export async function fetchPosts({
       status,
       limit: limit.toString(),
       expand: expand.join(','),
+      hidden_from_feed: 'false',
     })
 
     url.search = params.toString()
