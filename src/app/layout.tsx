@@ -8,8 +8,24 @@ import Footer from '@/app/components/Footer'
 import { SubscriptionProvider } from '@/app/contexts/SubscriptionContext'
 
 export const metadata: Metadata = {
-  title: 'Growthnotes',
+  title: 'Growthnotes | Insights for the modern marketer',
   description: 'Insights for the modern marketer',
+  openGraph: {
+    title: 'Growthnotes',
+    description: 'Insights for the modern marketer',
+    url: 'https://www.growthnotes.com',
+    siteName: 'Growthnotes',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Growthnotes - Insights for the modern marketer',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
