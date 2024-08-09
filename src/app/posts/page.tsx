@@ -13,7 +13,7 @@ export default function PostsPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ defaultTransition }}
+      transition={defaultTransition}
     >
       <section className="container py-20 flex flex-col gap-8">
         <div className="border-b pb-3 flex items-end justify-between">

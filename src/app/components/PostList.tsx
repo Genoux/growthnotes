@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PostCard from './PostCard'
-import { usePosts, usePostsPaginated } from '@/app/hooks/usePosts'
+import { usePosts } from '@/app/hooks/usePosts'
 import { RefreshCcw } from 'lucide-react'
 import clsx from 'clsx'
 import PostPagination from '@/app/components/PostPagination'
@@ -22,18 +22,20 @@ export default function PostList({
 }: PostListProps) {
   const [page, setPage] = useState(1)
   const [initialLoading, setInitialLoading] = useState(true)
-  const {
-    data: posts,
-    isLoading,
-    error,
-    isFetching,
-    refetch,
-    totalPages,
-  } = paginated ? usePostsPaginated(page, postsPerPage) : usePosts(limit)
-
   const [showPagination, setShowPagination] = useState(false)
   const [isInView, setIsInView] = useState(true)
   const postListRef = useRef<HTMLDivElement>(null)
+
+  const { data: posts, isLoading, error, isFetching, refetch } = usePosts()
+
+  const totalPages = paginated
+    ? Math.ceil((posts?.length || 0) / postsPerPage)
+    : 1
+  const displayPosts = paginated
+    ? posts?.slice((page - 1) * postsPerPage, page * postsPerPage)
+    : limit
+      ? posts?.slice(0, limit)
+      : posts
 
   useEffect(() => {
     setInitialLoading(false)
@@ -59,20 +61,17 @@ export default function PostList({
       rootMargin: '0px',
       threshold: 0.1,
     })
-
     if (postListRef.current) {
       observer.observe(postListRef.current)
     }
-
     window.addEventListener('scroll', handleScroll, { passive: true })
-
     return () => {
       observer.disconnect()
       window.removeEventListener('scroll', handleScroll)
     }
   }, [handleIntersection, handleScroll])
 
-  if (error || (!isFetching && posts?.length === 0)) {
+  if (error || (!isFetching && displayPosts?.length === 0)) {
     return (
       <div className="border border-primary border-opacity-20 p-20 items-center flex flex-col gap-6 justify-center opacity-90 text-primary h-full min-h-[450px]">
         <h2>
@@ -89,7 +88,6 @@ export default function PostList({
     )
   }
 
-  const displayPosts = posts || []
   const skeletonCount = limit || postsPerPage
 
   return (
@@ -99,7 +97,7 @@ export default function PostList({
           ? Array.from({ length: skeletonCount }, (_, index) => (
               <PostCard key={`skeleton-${index}`} isLoading={true} />
             ))
-          : displayPosts.map((post, index) => (
+          : displayPosts?.map((post, index) => (
               <PostCard
                 key={post.id}
                 post={post}

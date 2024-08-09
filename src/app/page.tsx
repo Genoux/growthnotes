@@ -26,7 +26,7 @@ export default function Home() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ defaultTransition }}
+      transition={defaultTransition}
     >
       <main className="mx-auto w-full">
         <section ref={heroRef} className="py-20 border-b">

@@ -26,7 +26,7 @@ export default function SinglePost({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ defaultTransition }}
+      transition={defaultTransition}
     >
       <section className="container py-20 flex flex-col gap-8">
         <div className="flex justify-between items-end border-b pb-3 w-full mx-auto">

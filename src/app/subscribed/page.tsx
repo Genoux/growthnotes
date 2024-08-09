@@ -29,7 +29,7 @@ export default function Subscribed() {
           </Link>
         </div>
       </div>
-      <BrandScroll slidesPerView={12} className="w-full mt-20" />
+      <BrandScroll className="w-full mt-20" />
     </div>
   )
 }
