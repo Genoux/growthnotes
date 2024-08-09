@@ -1,50 +1,36 @@
 'use client'
-import 'swiper/css';
-import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+
+import 'swiper/css'
+import Image from 'next/image'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay } from 'swiper/modules'
 
 const brands = [
   'ogilvy', 'squattypotty', 'bluehousesalmon', 'deloittedigital', 'tbwa',
   'havasmedia', 'cossette', 'prose', 'adventurereadybrands', 'soylent',
   'cycle', 'crispin'
-];
+]
 
 interface BrandScrollProps {
-  slidesPerView?: number;
-  className?: string;
+  className?: string
 }
 
-const BrandScroll: React.FC<BrandScrollProps> = ({ slidesPerView = 8, className = '' }) => {
+const BrandScroll: React.FC<BrandScrollProps> = ({ className = '' }) => {
   return (
-    <div className={`relative overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] ${className}`}>
+    <div className={`relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_128px,black_calc(100%-128px),transparent)] ${className}`}>
       <Swiper
         modules={[Autoplay]}
-        slidesPerView={slidesPerView}
-        loop={true}
+        loop
         speed={2000}
         autoplay={{
           delay: 0,
           disableOnInteraction: false,
-          reverseDirection: false,
         }}
         breakpoints={{
-          0: {
-            slidesPerView: Math.min(3, slidesPerView),
-            spaceBetween: 10,
-          },
-          480: {
-            slidesPerView: Math.min(4, slidesPerView),
-            spaceBetween: 15,
-          },
-          767: {
-            slidesPerView: Math.min(6, slidesPerView),
-            spaceBetween: 0,
-          },
-          992: {
-            slidesPerView: slidesPerView,
-            spaceBetween: 0,
-          }
+          0: { slidesPerView: 2, spaceBetween: 10 },
+          480: { slidesPerView: 3, spaceBetween: 15 },
+          768: { slidesPerView: 4, spaceBetween: 20 },
+          1024: { slidesPerView: 6, spaceBetween: 30 }
         }}
         className="trusted-by-swiper"
       >
@@ -56,13 +42,13 @@ const BrandScroll: React.FC<BrandScrollProps> = ({ slidesPerView = 8, className 
               width={100}
               height={50}
               priority
-              className="h-12 w-24 flex mx-auto object-contain"
+              className="h-12 w-24 mx-auto object-contain"
             />
           </SwiperSlide>
         ))}
       </Swiper>
     </div>
-  );
-};
+  )
+}
 
-export default BrandScroll;
+export default BrandScroll
