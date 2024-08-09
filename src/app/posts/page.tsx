@@ -3,11 +3,18 @@
 import PostList from '@/app/components/PostList'
 import SubscriptionBanner from '../components/SubscriptionBanner'
 import { usePosts } from '@/app/hooks/usePosts'
+import { motion } from 'framer-motion'
+import { defaultTransition } from '@/app/utils/motionConfig'
 
 export default function PostsPage() {
   const { data: posts } = usePosts()
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ defaultTransition }}
+    >
       <section className="container py-16 flex flex-col gap-8">
         <div className="border-b pb-3 flex items-end justify-between">
           <h1 className="text-3xl font-bold-condensed ">Archive </h1>
@@ -25,6 +32,6 @@ export default function PostsPage() {
       <section className="container py-12">
         <SubscriptionBanner />
       </section>
-    </div>
+    </motion.div>
   )
 }

@@ -73,7 +73,7 @@ const Footer = () => {
               <h3 className="text-xl font-semibold mb-4">Pages</h3>
               <ul className="flex flex-col gap-2">
                 {Object.entries(navLinks).map(([href, label]) => (
-                  <li key={href} className="hover:opacity-80">
+                  <li key={href} className="hover:opacity-50 transition-all">
                     <Link href={href}>{label}</Link>
                   </li>
                 ))}
@@ -99,7 +99,7 @@ const Footer = () => {
                     <li key={post.slug}>
                       <Link
                         href={`/posts/${post.slug}`}
-                        className="hover:opacity-80"
+                        className="hover:opacity-50 transition-all"
                       >
                         {post.title.length > 30
                           ? post.title.substring(0, 30) + '...'
@@ -113,7 +113,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <section className="container flex sm:flex-row gap-6 sm:gap-0 flex-col-reverse w-full items-center justify-between py-8">
+      <section className="container flex w-full items-center justify-between py-8">
         <p className="text-sm">© All rights reserved – Growthnotes</p>
         <Image
           src="/madebyinbeat.svg"

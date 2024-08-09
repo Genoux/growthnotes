@@ -5,12 +5,19 @@ import PostContent from '@/app/components/PostContent'
 import { format, fromUnixTime } from 'date-fns'
 import SubscriptionBanner from '@/app/components/SubscriptionBanner'
 import ReadingProgressBar from '@/app/components/ReadingProgressBar'
+import { motion } from 'framer-motion'
+import { defaultTransition } from '@/app/utils/motionConfig'
 
 export default function LatestPostPage() {
   const { data: post, isLoading, error } = useSinglePost()
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ defaultTransition }}
+    >
       <section className="container py-16 flex flex-col gap-8">
         <div className="flex justify-between items-end border-b pb-3 w-full mx-auto">
           <h1 className="text-3xl font-bold-condensed">Latest Issue</h1>
@@ -28,6 +35,6 @@ export default function LatestPostPage() {
       <section className="container py-12">
         <SubscriptionBanner />
       </section>
-    </>
+    </motion.div>
   )
 }

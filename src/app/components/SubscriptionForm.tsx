@@ -33,7 +33,7 @@ function FormContent({
       <Button
         type="submit"
         disabled={isLoading}
-        className={`rounded-full text-md font-medium h-full ${isSubscribed ? 'pointer-events-none' : ''}`}
+        className={`rounded-full text-md font-medium px-6 lg:px-12 lg:min-w-44 h-full ${isSubscribed ? 'pointer-events-none' : ''}`}
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -81,8 +81,8 @@ export default function SubscriptionForm({
         setEmail('')
         setIsSubscribed(true)
         toast({
-          title: 'Subscribed!',
-          description: 'Check your inbox for the confirmation email.',
+          title: 'Thanks for subscribing!',
+          description: 'We’ve sent you an email to confirm your subscription',
           className: 'shadow-hard border-[3px] bg-yellow text-center',
         })
         setTimeout(() => {

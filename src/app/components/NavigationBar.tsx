@@ -60,7 +60,7 @@ const NavLink = ({ href, active, children, onClick }: NavLinkProps) => (
   <Link
     href={href}
     className={clsx(
-      'text-gray-900 px-4 h-full flex items-center justify-center rounded-full w-fit',
+      'text-gray-900 px-4 h-12 flex items-center justify-center rounded-full w-fit transition-all',
       active
         ? 'bg-black bg-opacity-10 cursor-auto'
         : 'font-normal border-opacity-0 hover:bg-black hover:bg-opacity-10'
@@ -143,7 +143,7 @@ export default function NavigationBar() {
           </div>
           <motion.div
             onClick={toggleMobileMenu}
-            className="md:hidden text-gray-900 cursor-pointer rounded-full p-2 flex items-center justify-center"
+            className="md:hidden text-gray-900 cursor-pointer w-10 h-10 rounded-full my-auto p-2 flex items-center justify-center"
             whileHover={{ backgroundColor: '#000', color: '#fff' }}
             whileTap={{ scale: 0.95 }}
           >
@@ -162,7 +162,7 @@ export default function NavigationBar() {
             className="fixed inset-0 z-50 bg-off-white flex flex-col"
           >
             <div className="flex w-full items-center justify-between py-4 border-b">
-              <div className="container flex items-center justify-between">
+              <div className="container flex items-center justify-between h-12">
                 <Link href="/" className="flex items-center">
                   <Image
                     src="/growthnotes.svg"
@@ -183,7 +183,7 @@ export default function NavigationBar() {
                 </motion.button>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center flex-grow space-y-6">
+            <div className="flex flex-col items-center justify-center flex-grow space-y-4">
               {Object.entries(navLinks).map(([href, label]) => (
                 <motion.div
                   key={href}

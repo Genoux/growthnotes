@@ -61,7 +61,7 @@ const SubscriptionPopup = ({ isOpen, onClose }: SubscriptionPopupProps) => {
             <div className="grid grid-cols-1 md:grid-cols-3 px-12 py-16 md:py-24 items-center gap-20">
               <div className="flex flex-col items-center gap-8 col-span-2">
                 <div className="w-full flex flex-col gap-3">
-                  <h2 className="text-4xl md:text-5xl text-center md:text-left font-bold-condensed text-primary -tracking-[0.125rem]  md:-tracking-[0.175rem] uppercase">
+                  <h2 className="text-4xl lg:text-5xl text-center md:text-left font-bold-condensed text-primary -tracking-[0.125rem]  lg:-tracking-[0.175rem] uppercase">
                     Join top marketers for insights that truly move the needle.
                   </h2>
                   <p className="text-md text-center md:text-left text-orange font-normal">

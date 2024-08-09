@@ -7,12 +7,19 @@ import SubscriptionBanner from '@/app/components/SubscriptionBanner'
 import ReadingProgressBar from '@/app/components/ReadingProgressBar'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { defaultTransition } from '@/app/utils/motionConfig'
 
 export default function PostPage({ params }: { params: { slug: string } }) {
   const { data: post, isLoading, error } = useSinglePost(params.slug)
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ defaultTransition }}
+    >
       <section className="container py-16 flex flex-col gap-8">
         <div className="flex justify-between items-end border-b pb-3 w-full mx-auto">
           <Link
@@ -36,6 +43,6 @@ export default function PostPage({ params }: { params: { slug: string } }) {
       <section className="container py-12">
         <SubscriptionBanner />
       </section>
-    </>
+    </motion.div>
   )
 }
