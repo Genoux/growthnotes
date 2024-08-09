@@ -37,7 +37,7 @@ export default function Home() {
       </section>
       <section className="container flex flex-col gap-8 pt-24 pb-32">
         <div className="w-full flex items-center justify-between">
-          <h2 className="text-3xl md:text-5xl font-bold-condensed uppercase">
+          <h2 className="text-3xl md:text-4xl font-bold-condensed uppercase tracking-tighter">
             Past Issues
           </h2>
           <Link href="/posts/">

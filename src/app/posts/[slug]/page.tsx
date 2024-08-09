@@ -13,8 +13,8 @@ export default function PostPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <section className="container pt-20 flex flex-col gap-8">
-        <div className="flex justify-between items-end border-b pb-3 w-full md:w-3/4 mx-auto">
+      <section className="container py-16 flex flex-col gap-8">
+        <div className="flex justify-between items-end border-b pb-3 w-full mx-auto">
           <Link
             href="/posts"
             className="flex items-center gap-2 hover:-translate-x-2 transition-all"
@@ -32,6 +32,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
           <PostContent post={post} isLoading={isLoading} error={error} />
         </ReadingProgressBar>
       </section>
+      <hr />
       <section className="container py-12">
         <SubscriptionBanner />
       </section>
