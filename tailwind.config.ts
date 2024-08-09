@@ -12,7 +12,7 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: '1.5rem',
+      padding: '1rem',
       screens: {
         sm: '640px',
         md: '768px',
@@ -21,6 +21,12 @@ const config = {
       },
     },
     extend: {
+      transitionTimingFunction: {
+        DEFAULT: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      transitionDuration: {
+        DEFAULT: '100ms',
+      },
       fontFamily: {
         sans: ['var(--font-lars)', 'sans-serif'],
         mono: ['var(--font-lars-mono)', 'monospace'],

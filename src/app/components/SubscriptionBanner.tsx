@@ -1,8 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-import { Button } from '@/app/components/ui/button'
-import { X } from 'lucide-react'
 import SubscriptionForm from '@/app/components/SubscriptionForm'
 import clsx from 'clsx'
 
@@ -19,7 +16,7 @@ const SubscriptionBanner = ({
     <div
       className={clsx(
         className,
-        'bg-yellow py-12 px-6 md:py-16 lg:px-12 shadow-hard outline outline-4 outline-primary rounded-sm relative w-full text-center'
+        'bg-yellow py-12 px-7 md:py-20 lg:px-12 shadow-hard outline outline-4 outline-primary rounded-sm relative w-full text-center'
       )}
     >
       <div className="max-w-2xl md:max-w-4xl mx-auto flex gap-8 flex-col text-center">

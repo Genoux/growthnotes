@@ -22,8 +22,6 @@ export default function PostList({
 }: PostListProps) {
   const [page, setPage] = useState(1)
   const [initialLoading, setInitialLoading] = useState(true)
-  const paginatedResult = usePostsPaginated(page, postsPerPage)
-  const nonPaginatedResult = usePosts(limit)
   const {
     data: posts,
     isLoading,
@@ -31,7 +29,7 @@ export default function PostList({
     isFetching,
     refetch,
     totalPages,
-  } = paginated ? paginatedResult : nonPaginatedResult
+  } = paginated ? usePostsPaginated(page, postsPerPage) : usePosts(limit)
 
   const [showPagination, setShowPagination] = useState(false)
   const [isInView, setIsInView] = useState(true)
@@ -74,7 +72,7 @@ export default function PostList({
     }
   }, [handleIntersection, handleScroll])
 
-  if (error || posts?.length === 0) {
+  if (error || (!isFetching && posts?.length === 0)) {
     return (
       <div className="border border-primary border-opacity-20 p-20 items-center flex flex-col gap-6 justify-center opacity-90 text-primary h-full min-h-[450px]">
         <h2>

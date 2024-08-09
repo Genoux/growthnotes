@@ -15,7 +15,7 @@ const Footer = () => {
   return (
     <div>
       <footer className="border-y py-16 md:py-32">
-        <div className="container md:grid flex flex-col grid-cols-2 gap-12 lg:gap-40">
+        <div className="container lg:grid flex flex-col grid-cols-2 gap-12 lg:gap-40">
           <div className="flex flex-col items-start gap-6 w-full">
             <Image
               src="/growthnotes.svg"
@@ -68,13 +68,13 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex w-full justify-start md:justify-end gap-24 pt-4 md:pt-12 ">
+          <div className="flex flex-col sm:flex-row gap-12 sm:gap-0 w-full justify-between">
             <div>
               <h3 className="text-xl font-semibold mb-4">Pages</h3>
               <ul className="flex flex-col gap-2">
-                {navLinks.map(link => (
-                  <li key={link.href} className="hover:opacity-80">
-                    <Link href={link.href}>{link.label}</Link>
+                {Object.entries(navLinks).map(([href, label]) => (
+                  <li key={href} className="hover:opacity-50 transition-all">
+                    <Link href={href}>{label}</Link>
                   </li>
                 ))}
               </ul>
@@ -99,7 +99,7 @@ const Footer = () => {
                     <li key={post.slug}>
                       <Link
                         href={`/posts/${post.slug}`}
-                        className="hover:opacity-80"
+                        className="hover:opacity-50 transition-all"
                       >
                         {post.title.length > 30
                           ? post.title.substring(0, 30) + '...'
@@ -113,7 +113,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <section className="container flex sm:flex-row gap-6 sm:gap-0 flex-col-reverse w-full items-center justify-between py-8">
+      <section className="container flex w-full items-center justify-between py-8">
         <p className="text-sm">© All rights reserved – Growthnotes</p>
         <Image
           src="/madebyinbeat.svg"

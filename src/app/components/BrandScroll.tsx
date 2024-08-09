@@ -40,7 +40,7 @@ const BrandScroll: React.FC<BrandScrollProps> = ({ className = '' }) => {
         breakpoints={{
           0: { slidesPerView: 2, spaceBetween: 10 },
           480: { slidesPerView: 3, spaceBetween: 15 },
-          768: { slidesPerView: 4, spaceBetween: 20 },
+          768: { slidesPerView: 5, spaceBetween: 20 },
           1024: { slidesPerView: 6, spaceBetween: 30 },
         }}
         className="trusted-by-swiper"
