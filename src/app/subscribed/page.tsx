@@ -1,10 +1,20 @@
+'use client'
+
 import React from 'react'
 import Link from 'next/link'
 import BrandScroll from '@/app/components/BrandScroll'
+import { motion } from 'framer-motion'
+import { defaultTransition } from '@/app/utils/motionConfig'
 
 export default function Subscribed() {
   return (
-    <div className="pt-40 pb-32 flex flex-col justify-evenly h-full gap-24">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={defaultTransition}
+      className="pt-40 pb-32 flex flex-col justify-evenly h-full gap-24"
+    >
       <div className="container mx-auto flex flex-col items-center justify-center gap-12">
         <div className="flex flex-col items-center ">
           <h1 className="text-3xl font-bold-condensed mb-4 text-orange">
@@ -30,6 +40,6 @@ export default function Subscribed() {
         </div>
       </div>
       <BrandScroll className="w-full mt-20" />
-    </div>
+    </motion.div>
   )
 }
