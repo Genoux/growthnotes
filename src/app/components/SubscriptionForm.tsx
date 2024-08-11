@@ -24,7 +24,7 @@ function FormContent({
         type="email"
         name="email"
         placeholder="Enter your email"
-        className="placeholder:text-sm sm:placeholder:text-base pl-4 md:pl-6 rounded-full h-full outline outline-[2px] outline-primary text-base focus:outline-[2px] text-primary"
+        className="placeholder:text-sm bg-white sm:placeholder:text-base pl-4 md:pl-6 rounded-full h-full outline outline-[2px] outline-primary border-nonetext-base focus:outline-[2px] text-primary"
         value={email}
         disabled={isSubscribed || isLoading}
         onChange={e => setEmail(e.target.value)}
@@ -33,7 +33,7 @@ function FormContent({
       <Button
         type="submit"
         disabled={isLoading}
-        className={`rounded-full text-md font-medium px-6 lg:px-12 min-w-32 lg:min-w-44 h-full ${isSubscribed ? 'pointer-events-none' : ''}`}
+        className={`text-white rounded-full text-md font-medium px-6 lg:px-12 min-w-32 lg:min-w-44 h-full ${isSubscribed ? 'pointer-events-none' : ''}`}
       >
         <AnimatePresence mode="wait">
           <motion.div
