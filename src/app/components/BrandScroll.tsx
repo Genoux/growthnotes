@@ -32,7 +32,7 @@ const BrandScroll: React.FC<BrandScrollProps> = ({ className = '' }) => {
       <Swiper
         modules={[Autoplay]}
         loop
-        speed={2000}
+        speed={3000}
         autoplay={{
           delay: 0,
           disableOnInteraction: false,
