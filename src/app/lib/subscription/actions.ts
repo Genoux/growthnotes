@@ -35,9 +35,8 @@ export async function submitSubscription(
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiToken}`,
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, utm_source: 'Website' }),
     })
-
     const data = await response.json()
 
     if (!response.ok) {
