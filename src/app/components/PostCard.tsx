@@ -36,7 +36,7 @@ export default function PostCard({
               {format(fromUnixTime(Number(post.publish_date)), 'MMMM d, yyyy')}
             </p>
             {newPost && (
-              <p className="font-bold-condensed text-white bg-orange rounded-full px-3 py-0.5 text-sm">
+              <p className="font-bold-condensed text-white bg-orange rounded-full px-3 py-0.5 text-sm uppercase tracking-wide">
                 New
               </p>
             )}
