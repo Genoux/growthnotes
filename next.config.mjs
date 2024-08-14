@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    domains: ['beehiiv-images-production.s3.amazonaws.com', 'tinyurl.com'],
+  },
+}
 
-export default nextConfig;
+export default nextConfig
