@@ -54,13 +54,13 @@ export default function PostCard({
               alt={post.title}
               width={420}
               height={250}
-              className="w-full object-cover border border-primary border-opacity-10 h-[200px]"
+              className="w-full object-cover border border-primary border-opacity-10 h-[200px] rounded-xl overflow-hidden"
             />
           )}
           <p>
             {' '}
-            {post.meta_default_description!.length > 120
-              ? post.meta_default_description!.substring(0, 120) + '...'
+            {post.meta_default_description!.length > 160
+              ? post.meta_default_description!.substring(0, 160) + '...'
               : post.meta_default_description}
           </p>
         </div>
