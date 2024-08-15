@@ -85,7 +85,7 @@ export default function Home() {
                 </h2>
                 <p className="text-sm lg:text-md max-w-xl mr-auto">
                   {
-                    "With over 70,000 industry experts trusting our content, we bring you the latest trends, data-driven strategies, and practical advice that actually move the needle. we're here to keep you ahead of the curve in the ever-evolving world of digital commerce."
+                    "With over 30,000 industry experts trusting our content, we bring you the latest trends, data-driven strategies, and practical advice that actually move the needle. we're here to keep you ahead of the curve in the ever-evolving world of digital commerce."
                   }
                 </p>
               </div>
