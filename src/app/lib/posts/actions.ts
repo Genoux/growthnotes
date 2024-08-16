@@ -3,9 +3,9 @@ import { Post, FetchPostsParams } from './types'
 
 export async function fetchPosts({
   limit = 100,
-  orderBy = 'publish_date',
+  orderBy = 'displayed_date',
   direction = 'desc',
-  audience = 'free',
+  audience = 'all',
   status = 'confirmed',
   expand = ['free_web_content'],
 }: FetchPostsParams = {}): Promise<Post[]> {
@@ -28,6 +28,7 @@ export async function fetchPosts({
       limit: limit.toString(),
       expand: expand.join(','),
       hidden_from_feed: 'false',
+      platform: 'all',
     })
 
     url.search = params.toString()
@@ -56,17 +57,17 @@ export async function fetchPosts({
 
     const currentTimestamp = Math.floor(Date.now() / 1000)
     return data.data
-      .filter((post: any) => post.publish_date <= currentTimestamp)
+      .filter((post: any) => post.displayed_date <= currentTimestamp)
       .map(
         (post: any): Post => ({
           id: post.id,
           title: post.title,
           meta_default_description:
-            post.meta_default_description || post.preview_text,
+            post.meta_default_description || post.preview_text || post.subtitle,
           thumbnail_url: post.thumbnail_url,
           slug: post.slug,
           web_url: post.web_url,
-          publish_date: post.publish_date,
+          publish_date: post.displayed_date,
           content: post.content,
         })
       )
