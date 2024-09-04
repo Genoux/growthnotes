@@ -30,7 +30,7 @@ export default function Home() {
                 </h1>
                 <p className="text-md lg:text-xl leading-snug text-center md:text-left sm:w-3/4 md:w-full mx-auto">
                   We deliver monthly, data-driven analysis and practical
-                  strategies to over 30,000 e-commerce experts.{' '}
+                  strategies to over 50,000 e-commerce experts.{' '}
                 </p>
                 <SubscriptionForm className="w-full sm:w-4/5 md:w-full mx-auto" />
               </div>
@@ -85,7 +85,7 @@ export default function Home() {
                 </h2>
                 <p className="text-sm lg:text-md max-w-xl mr-auto">
                   {
-                    "With over 30,000 industry experts trusting our content, we bring you the latest trends, data-driven strategies, and practical advice that actually move the needle. we're here to keep you ahead of the curve in the ever-evolving world of digital commerce."
+                    "With over 50,000 industry experts trusting our content, we bring you the latest trends, data-driven strategies, and practical advice that actually move the needle. we're here to keep you ahead of the curve in the ever-evolving world of digital commerce."
                   }
                 </p>
               </div>

@@ -21,7 +21,7 @@ const SubscriptionBanner = ({
     >
       <div className="max-w-2xl md:max-w-4xl mx-auto flex gap-8 flex-col text-center">
         <h2 className="text-3xl lg:text-4xl px-0 md:px-10 font-bold-condensed uppercase">
-          Join 30,000+ e-commerce experts that get deep marketing insights every
+          Join 50,000+ e-commerce experts that get deep marketing insights every
           week.
         </h2>
         <div className="flex flex-col gap-6 justify-center">
