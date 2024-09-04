@@ -57,7 +57,10 @@ export async function fetchPosts({
 
     const currentTimestamp = Math.floor(Date.now() / 1000)
     return data.data
-      .filter((post: any) => post.displayed_date <= currentTimestamp)
+      .filter(
+        (post: any) =>
+          post.publish_date <= currentTimestamp && post.publish_date !== null
+      )
       .map(
         (post: any): Post => ({
           id: post.id,
@@ -67,7 +70,7 @@ export async function fetchPosts({
           thumbnail_url: post.thumbnail_url,
           slug: post.slug,
           web_url: post.web_url,
-          publish_date: post.displayed_date,
+          publish_date: post.publish_date,
           content: post.content,
         })
       )
