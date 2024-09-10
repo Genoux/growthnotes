@@ -10,6 +10,7 @@ import clsx from 'clsx'
 
 export const navLinks = {
   '/': 'Home',
+  '/podcast': 'Podcast',
   '/posts': 'Archive',
   '/posts/latest': 'Latest Issue',
 }
@@ -127,11 +128,22 @@ export default function NavigationBar() {
             />
           </Link>
           <div className="hidden md:flex items-stretch space-x-2">
-            {Object.entries(navLinks).map(([href, label]) => (
-              <NavLink key={href} href={href} active={activeLink === href}>
-                {label}
-              </NavLink>
-            ))}
+            {Object.entries(navLinks).map(([href, label]) =>
+              href === '/podcast' ? (
+                <div key={href} className="flex items-center">
+                  <NavLink href={href} active={activeLink === href}>
+                    {label}
+                    <span className="bg-[#FF6635] text-white text-[14px] ml-[6px] font-bold px-[10px] py-[4px] rounded-[28px] select-none flex justify-center items-center">
+                      NEW
+                    </span>
+                  </NavLink>
+                </div>
+              ) : (
+                <NavLink key={href} href={href} active={activeLink === href}>
+                  {label}
+                </NavLink>
+              )
+            )}
             <motion.button
               onClick={handleOpenPopup}
               className="bg-orange text-white text-md font-medium px-4 rounded-full flex items-center"
