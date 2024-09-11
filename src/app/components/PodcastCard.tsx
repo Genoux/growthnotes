@@ -14,7 +14,7 @@ type PostCardProps = {
 export default function PostCard({
   post,
   isLoading = false,
-  newPost = false,
+  newPost = true,
 }: PostCardProps) {
   if (isLoading) {
     return <PostCardSkeleton />
@@ -30,35 +30,39 @@ export default function PostCard({
         transition={{ duration: 0.12 }}
         className="outline outline-[1px] outline-primary rounded-lg bg-white hover:outline-[3px] overflow-hidden"
       >
-        <div className="flex flex-row items-center justify-center p-10 h-[305px] w-full">
-          <div className="flex items-start justify-start w-full h-full gap-[32px] overflow-hidden">
+        <div className="flex flex-row items-center justify-center p-10 w-full h-[355px]">
+          <div className="grid grid-cols-4 w-full gap-8 h-full ">
             {post.thumbnail_url && (
-              <Image
-                src={
-                  post.thumbnail_url !== 'string'
-                    ? post.thumbnail_url
-                    : 'https://tinyurl.com/25ks83w3'
-                }
-                alt={post.title}
-                width={200}
-                height={200}
-                className="  border border-primary border-opacity-10 rounded-xl h-full w-auto "
-              />
+              <div className="relative col-span-2 w-auto h-full ">
+                <Image
+                  src={
+                    post.thumbnail_url !== 'string'
+                      ? post.thumbnail_url
+                      : 'https://tinyurl.com/25ks83w3'
+                  }
+                  alt={post.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="  border border-primary border-opacity-10 rounded-xl "
+                />
+              </div>
             )}
-            <div className="flex flex-col w-full h-full justify-between gap-5 ">
-              <div className="flex flex-col justify-start items-start h-full ">
-                <p className="font-mono text-[16px]">
-                  {format(
-                    fromUnixTime(Number(post.publish_date)),
-                    'MMMM d, yyyy'
-                  )}
-                </p>
-                {newPost && (
-                  <p className="font-bold-condensed text-white bg-orange rounded-full px-3 py-0.5 text-sm uppercase tracking-wide">
-                    New
+            <div className="flex flex-col w-full items-center justify-between gap-5 h-full col-span-2">
+              <div className="flex flex-col justify-start items-start h-fit gap-1 ">
+                <div className="flex justify-center items-center gap-2">
+                  <p className="font-mono text-base ">
+                    {format(
+                      fromUnixTime(Number(post.publish_date)),
+                      'MMMM d, yyyy'
+                    )}
                   </p>
-                )}
-                <h3 className="text-[20px] font-bold-condensed uppercase -tracking-[0.050rem] ">
+                  {newPost && (
+                    <p className="font-bold-condensed text-white bg-blue rounded-full px-3 py-0.5 text-sm uppercase tracking-wide">
+                      New
+                    </p>
+                  )}
+                </div>
+                <h3 className="text-xl  font-bold-condensed uppercase -tracking-[0.050rem] ">
                   {post.title}
                 </h3>
 
@@ -70,7 +74,7 @@ export default function PostCard({
                 </p>
               </div>
 
-              <div className="flex flex-row justify-end items-center gap-[24px] w-full h-auto">
+              <div className="flex flex-row justify-end items-center gap-6 w-full h-fit">
                 <Image
                   src={'/badges/listen-spotify.svg'}
                   alt="Listen Spotify"
