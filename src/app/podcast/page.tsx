@@ -45,7 +45,7 @@ export default function Home() {
         <section ref={heroRef} className="py-20 border-b">
           <div className="flex flex-col gap-24 container">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center">
-              <div className="flex flex-col w-full gap-6 py-12 md:py-6 px-4 md:px-0 h-full">
+              <div className="flex flex-col w-full gap-6 py-12 md:py-6 px-4 md:px-0 h-full justify-center items-start">
                 <h1 className="text-6xl lg:text-7xl text-center md:text-left font-bold-condensed -tracking-[0.175rem] w-full">
                   MARKETING LEADERS' AUDIO INSIGHTS
                 </h1>
@@ -61,6 +61,7 @@ export default function Home() {
                     href={'https://podcasts.apple.com/ca/podcast/growthnotes'}
                     rel="noopener noreferrer"
                     target="_blank"
+                    className="hover:scale-105 transition-transform duration-300"
                   >
                     <Image
                       src={'/badges/apple-music.svg'}
@@ -74,6 +75,7 @@ export default function Home() {
                     }
                     rel="noopener noreferrer"
                     target="_blank"
+                    className="hover:scale-105 transition-transform duration-300"
                   >
                     <Image
                       src={'/badges/spotify.svg'}
@@ -108,14 +110,18 @@ export default function Home() {
             className="flex flex-col justify-start items-center"
           /> */}
           <div className="flex flex-row justify-center items-start gap-6 w-full">
-            <PodcastCard post={mockPost} />
-            <PodcastCard post={mockPost2} />
+            <div className="w-1/2">
+              <PodcastCard post={mockPost} />
+            </div>
+            <div className="w-1/2">
+              <PodcastCard post={mockPost2} />
+            </div>
           </div>
         </section>
 
         <section className="border-y">
           <div className="container flex items-center h-full border-x md:border-l-0 py-20 md:py-0">
-            <div className="border-x md:px-12 lg:px-20 md:py-20 h-full w-full hidden md:block">
+            <div className="border-x md:px-12 lg:px-20 md:py-40 h-full w-full hidden md:block">
               <Image
                 src="/blob-disorder.svg"
                 alt="GN Blob"
@@ -125,7 +131,7 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-col justify-center h-full">
-              <div className="flex flex-col gap-6 items-center px-6  md:px-16">
+              <div className="flex flex-col gap-6 items-center px-6 md:px-16 py-20">
                 <h2 className="text-4xl lg:text-6xl font-bold-condensed uppercase">
                   {
                     'The premier podcast for marketing leaders driven to excel in the digital economy.'
@@ -141,7 +147,7 @@ export default function Home() {
                     "Each episode features industry experts discussing actionable insights on enhancing brand visibility and accelerating revenue growth. Whether you're a CMO, VP of Marketing or e-commerce expert, we offer powerful strategies to transform your online presence."
                   }
                 </p>
-                <p className="text-sm lg:text-md max-w-xl mr-auto text-[#030712] font-medium">
+                <p className="text-sm lg:text-md max-w-xl mr-auto text-black font-medium">
                   {
                     'Tune in to explore innovative solutions in paid social advertising and consumer engagement.'
                   }
