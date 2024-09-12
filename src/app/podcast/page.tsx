@@ -1,28 +1,26 @@
 'use client'
-import PodcastList from '@/app/components/PodcastList'
-import SubscriptionForm from '@/app/components/SubscriptionForm'
 import SubscriptionBanner from '@/app/components/SubscriptionBanner'
 import Image from 'next/image'
 import BrandScroll from '@/app/components/BrandScroll'
-import { Button } from '@/app/components/ui/button'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { defaultTransition } from '@/app/utils/motionConfig'
 import { useRef } from 'react'
 import PodcastCard from '@/app/components/PodcastCard'
-import { fetchPostsPodcast } from '@/app/lib/posts/actions'
+import { fetchPodcast } from '@/app/lib/posts/actions'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
   const heroRef = useRef(null)
   const [podcastPosts, setPodcastPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await fetchPostsPodcast()
-        console.log('Fetched podcast posts:', data)
+        const data = await fetchPodcast()
         setPodcastPosts(data)
+        setIsLoading(false)
       } catch (error) {
         console.error('Error fetching podcast posts:', error)
       }
@@ -30,28 +28,6 @@ export default function Home() {
 
     fetchData()
   }, [])
-
-  const mockPost = {
-    duration: '30 min !',
-    slug: 'example-post',
-    publish_date: '1633046400', // Unix timestamp
-    title:
-      'Harnessing the Power of Community To Drive Business Results with Jane Stecyk',
-    thumbnail_url: '/podcast-example-picture.svg',
-    meta_default_description:
-      'In this episode, Jane Stecyk, VP of Lifecycle Marketing at Mighty Networks, reveals why...',
-  }
-
-  const mockPost2 = {
-    duration: '30 min !',
-    slug: 'example-post',
-    publish_date: '1633046400', // Unix timestamp
-    title:
-      'Transform Your Marketing Strategies To Fit New Cultures. Instantly. with Brian Crandall of Hurom America',
-    thumbnail_url: '/podcast-example-picture-2.svg',
-    meta_default_description:
-      'On today’s episode, we welcome Brian Crandall, Director of Marketing of Hurom America...',
-  }
 
   return (
     <motion.div
@@ -126,14 +102,21 @@ export default function Home() {
               EPISODES
             </h2>
           </div>
-          {/*<PodcastList
-            limit={3}
-            className="flex flex-col justify-start items-center"
-          /> */}
+
           <div className="flex flex-col lg:flex-row justify-center items-start gap-6 w-full">
             {podcastPosts.map((post, index) => (
               <div key={index} className="w-full">
-                <PodcastCard post={post} />
+                <Link
+                  href={'https://open.spotify.com/show/4mQ0C03VxsPQfom5bz1Iyu'}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <PodcastCard
+                    post={post}
+                    isLoading={isLoading}
+                    newPost={index === 0}
+                  />
+                </Link>
               </div>
             ))}
           </div>
