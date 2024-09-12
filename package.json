@@ -32,7 +32,6 @@
     "swiper": "^11.1.9",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
-    "xmldom": "^0.6.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

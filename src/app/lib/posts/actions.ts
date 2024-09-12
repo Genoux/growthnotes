@@ -81,7 +81,7 @@ export async function fetchPosts({
   }
 }
 
-export async function fetchPostsPodcast(): Promise<any> {
+export async function fetchPodcast(): Promise<any> {
   try {
     const url = 'https://feeds.cohostpodcasting.com/YkSrQCCT'
 
@@ -103,9 +103,7 @@ export async function fetchPostsPodcast(): Promise<any> {
         `Failed to fetch podcast posts from API: ${response.status} ${response.statusText}`
       )
     }
-
     const xmlText = await response.text()
-    console.log('XML Text:', xmlText)
 
     const parser = new XMLParser({
       ignoreAttributes: false,
@@ -126,19 +124,20 @@ export async function fetchPostsPodcast(): Promise<any> {
       const mappedItem = {
         title: item.title,
         link: item.link,
-        description: item['itunes:subtitle'],
         meta_default_description: item['itunes:subtitle'],
         publish_date: formattedDate,
+        publish_date_raw: pubDate,
         author: item.author,
         enclosure: item.enclosure?.['@_url'],
         duration: item['itunes:duration'],
         thumbnail_url: item['itunes:image']?.['@_href'],
       }
-      console.log('Publication Date:', pubDate)
-      console.log('Mapped Item:', mappedItem)
 
       return mappedItem
     })
+
+    // Sort items by publish_date_raw in descending order
+    items.sort((a: any, b: any) => b.publish_date_raw - a.publish_date_raw)
 
     return items
   } catch (error) {
