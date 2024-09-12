@@ -1,6 +1,11 @@
 'use server'
 import { Post, FetchPostsParams } from './types'
 
+// Posts before Aug 17 were entered manually on the same day, so their publish_dates are identical.
+// For these posts, we use displayed_date to show the intended publication date.
+// For posts on or after Aug 17, we use the actual publish_date.
+const CUTOFF_TIMESTAMP = 1723939199
+
 export async function fetchPosts({
   limit = 100,
   orderBy = 'displayed_date',
@@ -70,7 +75,10 @@ export async function fetchPosts({
           thumbnail_url: post.thumbnail_url,
           slug: post.slug,
           web_url: post.web_url,
-          publish_date: post.publish_date,
+          publish_date:
+            post.publish_date > CUTOFF_TIMESTAMP
+              ? post.publish_date
+              : post.displayed_date || post.publish_date,
           content: post.content,
         })
       )
