@@ -13,6 +13,22 @@ export type Post = {
   }
 }
 
+export type PostPodcast = {
+  id: string
+  title: string
+  duration: string
+  meta_default_description?: string
+  thumbnail_url?: string
+  slug: string
+  web_url: string
+  publish_date: string
+  content?: {
+    free?: {
+      web?: string
+    }
+  }
+}
+
 type expand = 'free_web_content'
 
 export type FetchPostsParams = {
