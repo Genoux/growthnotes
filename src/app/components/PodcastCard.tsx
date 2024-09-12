@@ -1,25 +1,25 @@
-import { PostPodcast } from '@/app/lib/posts/types'
+import { Podcast } from '@/app/lib/posts/types'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Skeleton } from '@/app/components/ui/skeleton'
 import Link from 'next/link'
 
 type PodcastCardProps = {
-  post?: PostPodcast
+  podcast?: Podcast
   isLoading?: boolean
-  newPost?: boolean
+  newPodcast?: boolean
 }
 
 export default function PodcastCardProps({
-  post,
+  podcast,
   isLoading = false,
-  newPost = false,
+  newPodcast = false,
 }: PodcastCardProps) {
   if (isLoading) {
     return <PocastCardSkeleton />
   }
 
-  if (!post) return null
+  if (!podcast) return null
 
   return (
     <motion.div
@@ -30,15 +30,15 @@ export default function PodcastCardProps({
     >
       <div className="flex flex-row items-center justify-center p-10 w-full h-auto">
         <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row justify-center items-center w-full gap-8 h-full">
-          {post.thumbnail_url && (
+          {podcast.thumbnail_url && (
             <div className="h-auto w-full xl:h-[225px] min-w-[225px] lg:w-full">
               <Image
                 src={
-                  post.thumbnail_url !== 'string'
-                    ? post.thumbnail_url
+                  podcast.thumbnail_url !== 'string'
+                    ? podcast.thumbnail_url
                     : 'https://tinyurl.com/25ks83w3'
                 }
-                alt={post.title}
+                alt={podcast.title}
                 width={225}
                 height={225}
                 sizes="100vw"
@@ -50,25 +50,21 @@ export default function PodcastCardProps({
             <div className="flex flex-col justify-start items-start h-fit gap-1">
               <div className="flex justify-center items-center gap-2">
                 <p className="font-mono text-base line-clamp-1  ">
-                  {post.duration}
+                  {podcast.duration}
                   {' • '}
-                  {post.publish_date}
+                  {podcast.publish_date}
                 </p>
-                {newPost && (
+                {newPodcast && (
                   <span className="font-bold-condensed text-white bg-blue rounded-full px-3 py-0.5 text-sm uppercase tracking-wide">
                     New
                   </span>
                 )}
               </div>
               <h3 className="text-xl font-bold-condensed uppercase -tracking-[0.050rem] line-clamp-2 md:line-clamp-3">
-                {post.title!.length > 160
-                  ? post.title!.substring(0, 160) + '...'
-                  : post.title}
+                {podcast.title}
               </h3>
               <p className="line-clamp-2 text-lg leading-[24px]">
-                {post.meta_default_description!.length > 160
-                  ? post.meta_default_description!.substring(0, 160) + '...'
-                  : post.meta_default_description}
+                {podcast.subtitle}
               </p>
             </div>
             <div className="flex flex-row justify-end items-center gap-6 w-full h-fit">

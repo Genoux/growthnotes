@@ -1,5 +1,5 @@
 'use server'
-import { Post, FetchPostsParams } from './types'
+import { Post, FetchPostsParams, Podcast } from './types'
 import { XMLParser } from 'fast-xml-parser'
 
 export async function fetchPosts({
@@ -81,7 +81,7 @@ export async function fetchPosts({
   }
 }
 
-export async function fetchPodcast(): Promise<any> {
+export async function fetchPodcast(): Promise<Podcast[]> {
   try {
     const url = 'https://feeds.cohostpodcasting.com/YkSrQCCT'
 
@@ -93,12 +93,6 @@ export async function fetchPodcast(): Promise<any> {
 
     if (!response.ok) {
       const errorText = await response.text()
-      console.error(
-        'Failed to fetch podcast posts from API:',
-        response.status,
-        response.statusText,
-        errorText
-      )
       throw new Error(
         `Failed to fetch podcast posts from API: ${response.status} ${response.statusText}`
       )
@@ -110,7 +104,6 @@ export async function fetchPodcast(): Promise<any> {
       attributeNamePrefix: '@_',
     })
     const jsonObj = parser.parse(xmlText)
-    console.log('Parsed JSON Object:', jsonObj)
 
     const items = jsonObj.rss.channel.item.map((item: any) => {
       const pubDate = new Date(item.pubDate)
@@ -121,27 +114,25 @@ export async function fetchPodcast(): Promise<any> {
       }
       const formattedDate = pubDate.toLocaleDateString('en-US', options)
 
-      const mappedItem = {
+      const mappedItem: Podcast = {
         title: item.title,
-        link: item.link,
-        meta_default_description: item['itunes:subtitle'],
+        duration: item['itunes:duration'],
+        subtitle: item['itunes:subtitle'],
+        thumbnail_url: item['itunes:image']?.['@_href'],
         publish_date: formattedDate,
         publish_date_raw: pubDate,
-        author: item.author,
-        enclosure: item.enclosure?.['@_url'],
-        duration: item['itunes:duration'],
-        thumbnail_url: item['itunes:image']?.['@_href'],
       }
 
       return mappedItem
     })
 
-    // Sort items by publish_date_raw in descending order
-    items.sort((a: any, b: any) => b.publish_date_raw - a.publish_date_raw)
+    items.sort(
+      (a: Podcast, b: Podcast) =>
+        b.publish_date_raw.getTime() - a.publish_date_raw.getTime()
+    )
 
     return items
   } catch (error) {
-    console.error('Error fetching podcast posts:', error)
     throw error
   }
 }

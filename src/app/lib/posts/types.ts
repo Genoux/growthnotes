@@ -13,12 +13,13 @@ export type Post = {
   }
 }
 
-export type PostPodcast = {
+export type Podcast = {
   title: string
   duration: string
-  meta_default_description?: string
-  thumbnail_url?: string
+  subtitle: string
+  thumbnail_url: string
   publish_date: string
+  publish_date_raw: Date
 }
 
 type expand = 'free_web_content'
