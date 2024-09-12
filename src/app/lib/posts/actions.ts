@@ -1,5 +1,6 @@
 'use server'
 import { Post, FetchPostsParams } from './types'
+import { XMLParser } from 'fast-xml-parser'
 
 // Posts before Aug 17 were entered manually on the same day, so their publish_dates are identical.
 // For these posts, we use displayed_date to show the intended publication date.
@@ -84,6 +85,72 @@ export async function fetchPosts({
       )
   } catch (error) {
     console.error('Error fetching posts:', error)
+    throw error
+  }
+}
+
+export async function fetchPostsPodcast(): Promise<any> {
+  try {
+    const url = 'https://feeds.cohostpodcasting.com/YkSrQCCT'
+
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/xml',
+      },
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error(
+        'Failed to fetch podcast posts from API:',
+        response.status,
+        response.statusText,
+        errorText
+      )
+      throw new Error(
+        `Failed to fetch podcast posts from API: ${response.status} ${response.statusText}`
+      )
+    }
+
+    const xmlText = await response.text()
+    console.log('XML Text:', xmlText)
+
+    const parser = new XMLParser({
+      ignoreAttributes: false,
+      attributeNamePrefix: '@_',
+    })
+    const jsonObj = parser.parse(xmlText)
+    console.log('Parsed JSON Object:', jsonObj)
+
+    const items = jsonObj.rss.channel.item.map((item: any) => {
+      const pubDate = new Date(item.pubDate)
+      const options: Intl.DateTimeFormatOptions = {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      }
+      const formattedDate = pubDate.toLocaleDateString('en-US', options)
+
+      const mappedItem = {
+        title: item.title,
+        link: item.link,
+        description: item['itunes:subtitle'],
+        meta_default_description: item['itunes:subtitle'],
+        publish_date: formattedDate,
+        author: item.author,
+        enclosure: item.enclosure?.['@_url'],
+        duration: item['itunes:duration'],
+        thumbnail_url: item['itunes:image']?.['@_href'],
+      }
+      console.log('Publication Date:', pubDate)
+      console.log('Mapped Item:', mappedItem)
+
+      return mappedItem
+    })
+
+    return items
+  } catch (error) {
+    console.error('Error fetching podcast posts:', error)
     throw error
   }
 }

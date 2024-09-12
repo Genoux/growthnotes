@@ -10,11 +10,29 @@ import { motion } from 'framer-motion'
 import { defaultTransition } from '@/app/utils/motionConfig'
 import { useRef } from 'react'
 import PodcastCard from '@/app/components/PodcastCard'
+import { fetchPostsPodcast } from '@/app/lib/posts/actions'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const heroRef = useRef(null)
+  const [podcastPosts, setPodcastPosts] = useState([])
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetchPostsPodcast()
+        console.log('Fetched podcast posts:', data)
+        setPodcastPosts(data)
+      } catch (error) {
+        console.error('Error fetching podcast posts:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const mockPost = {
+    duration: '30 min !',
     slug: 'example-post',
     publish_date: '1633046400', // Unix timestamp
     title:
@@ -25,6 +43,7 @@ export default function Home() {
   }
 
   const mockPost2 = {
+    duration: '30 min !',
     slug: 'example-post',
     publish_date: '1633046400', // Unix timestamp
     title:
@@ -47,7 +66,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 items-center">
               <div className="flex flex-col w-full gap-6 py-12 md:py-6 px-4 md:px-0 h-full justify-center items-start">
                 <h1 className="text-6xl lg:text-7xl text-center md:text-left font-bold-condensed -tracking-[0.175rem] w-full">
-                  MARKETING LEADERS' AUDIO INSIGHTS
+                  MARKETING LEADERS AUDIO INSIGHTS
                 </h1>
                 <p className="text-md lg:text-xl leading-snug text-center md:text-left sm:w-3/4 md:w-full mx-auto">
                   Decoding D2C success through expert discussions on growth,
@@ -67,6 +86,7 @@ export default function Home() {
                       src={'/badges/apple-music.svg'}
                       width={200}
                       height={60}
+                      alt="Apple Music"
                     />
                   </Link>
                   <Link
@@ -81,6 +101,7 @@ export default function Home() {
                       src={'/badges/spotify.svg'}
                       width={159}
                       height={60}
+                      alt="Spotify"
                     />
                   </Link>
                 </div>
@@ -109,49 +130,50 @@ export default function Home() {
             limit={3}
             className="flex flex-col justify-start items-center"
           /> */}
-          <div className="flex flex-row justify-center items-start gap-6 w-full">
-            <div className="w-1/2">
-              <PodcastCard post={mockPost} />
-            </div>
-            <div className="w-1/2">
-              <PodcastCard post={mockPost2} />
-            </div>
+          <div className="flex flex-col lg:flex-row justify-center items-start gap-6 w-full">
+            {podcastPosts.map((post, index) => (
+              <div key={index} className="w-full">
+                <PodcastCard post={post} />
+              </div>
+            ))}
           </div>
         </section>
 
         <section className="border-y">
-          <div className="container flex items-center h-full border-x md:border-l-0 py-20 md:py-0">
-            <div className="border-x md:px-12 lg:px-20 md:py-40 h-full w-full hidden md:block">
-              <Image
-                src="/blob-disorder.svg"
-                alt="GN Blob"
-                width={500}
-                height={600}
-                className="mx-auto w-full h-full object-contain"
-              />
-            </div>
-            <div className="flex flex-col justify-center h-full">
-              <div className="flex flex-col gap-6 items-center px-6 md:px-16 py-20">
-                <h2 className="text-4xl lg:text-6xl font-bold-condensed uppercase">
-                  {
-                    'The premier podcast for marketing leaders driven to excel in the digital economy.'
-                  }
-                </h2>
-                <p className="text-sm lg:text-md max-w-xl mr-auto">
-                  {
-                    'Hosted by inBeat Agency, this series dives deep into D2C marketing, paid growth strategies and influencer marketing, uncovering the secrets behind successful digital advertising and e-commerce branding.'
-                  }
-                </p>
-                <p className="text-sm lg:text-md max-w-xl mr-auto">
-                  {
-                    "Each episode features industry experts discussing actionable insights on enhancing brand visibility and accelerating revenue growth. Whether you're a CMO, VP of Marketing or e-commerce expert, we offer powerful strategies to transform your online presence."
-                  }
-                </p>
-                <p className="text-sm lg:text-md max-w-xl mr-auto text-black font-medium">
-                  {
-                    'Tune in to explore innovative solutions in paid social advertising and consumer engagement.'
-                  }
-                </p>
+          <div className="container flex items-center h-full   py-20 md:py-0">
+            <div className="flex flex-row justify-center items-center w-full h-full border-x ">
+              <div className=" md:px-12 lg:px-20 py-40 h-full w-full hidden md:block border-r-0 xl:border-r">
+                <Image
+                  src="/blob-disorder.svg"
+                  alt="GN Blob"
+                  width={500}
+                  height={600}
+                  className="mx-auto w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex flex-col justify-center h-full border-l-0 md:border-l xl:border-l-0 ">
+                <div className="flex flex-col gap-6 items-center px-6 md:px-16 md:py-20">
+                  <h2 className="text-4xl lg:text-6xl font-bold-condensed uppercase">
+                    {
+                      'The premier podcast for marketing leaders driven to excel in the digital economy.'
+                    }
+                  </h2>
+                  <p className="text-sm lg:text-md max-w-xl mr-auto">
+                    {
+                      'Hosted by inBeat Agency, this series dives deep into D2C marketing, paid growth strategies and influencer marketing, uncovering the secrets behind successful digital advertising and e-commerce branding.'
+                    }
+                  </p>
+                  <p className="text-sm lg:text-md max-w-xl mr-auto">
+                    {
+                      "Each episode features industry experts discussing actionable insights on enhancing brand visibility and accelerating revenue growth. Whether you're a CMO, VP of Marketing or e-commerce expert, we offer powerful strategies to transform your online presence."
+                    }
+                  </p>
+                  <p className="text-sm lg:text-md max-w-xl mr-auto text-black font-medium">
+                    {
+                      'Tune in to explore innovative solutions in paid social advertising and consumer engagement.'
+                    }
+                  </p>
+                </div>
               </div>
             </div>
           </div>

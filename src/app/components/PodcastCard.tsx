@@ -1,4 +1,4 @@
-import { Post } from '@/app/lib/posts/types'
+import { PostPodcast } from '@/app/lib/posts/types'
 import Link from 'next/link'
 import Image from 'next/image'
 import { format, fromUnixTime } from 'date-fns'
@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { Skeleton } from '@/app/components/ui/skeleton'
 
 type PostCardProps = {
-  post?: Post
+  post?: PostPodcast
   isLoading?: boolean
   newPost?: boolean
 }
@@ -30,10 +30,10 @@ export default function PostCard({
         transition={{ duration: 0.12 }}
         className="outline outline-[1px] outline-primary rounded-lg bg-white hover:outline-[3px] overflow-hidden"
       >
-        <div className="flex flex-row items-center justify-center p-10 w-full h-[355px]">
-          <div className="grid grid-cols-4 w-full gap-8 h-full ">
+        <div className="flex flex-row items-center justify-center p-10 w-full h-auto">
+          <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row justify-center items-center w-full gap-8 h-full">
             {post.thumbnail_url && (
-              <div className="relative col-span-2 w-auto h-full ">
+              <div className="h-auto w-full xl:h-[225px] min-w-[225px] lg:w-full">
                 <Image
                   src={
                     post.thumbnail_url !== 'string'
@@ -41,39 +41,38 @@ export default function PostCard({
                       : 'https://tinyurl.com/25ks83w3'
                   }
                   alt={post.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="  border border-primary border-opacity-10 rounded-xl "
+                  width={225}
+                  height={225}
+                  sizes="100vw"
+                  className="border border-primary border-opacity-10 rounded-xl h-full w-full xl:w-auto"
                 />
               </div>
             )}
-            <div className="flex flex-col w-full items-center justify-between gap-5 h-full col-span-2">
-              <div className="flex flex-col justify-start items-start h-fit gap-1 ">
+            <div className="flex flex-col w-full justify-between gap-5 h-[225px]">
+              <div className="flex flex-col justify-start items-start h-fit gap-1">
                 <div className="flex justify-center items-center gap-2">
-                  <p className="font-mono text-base ">
-                    {format(
-                      fromUnixTime(Number(post.publish_date)),
-                      'MMMM d, yyyy'
-                    )}
+                  <p className="font-mono text-base line-clamp-1  ">
+                    {post.duration}
+                    {' • '}
+                    {post.publish_date}
                   </p>
                   {newPost && (
-                    <p className="font-bold-condensed text-white bg-blue rounded-full px-3 py-0.5 text-sm uppercase tracking-wide">
+                    <span className="font-bold-condensed text-white bg-blue rounded-full px-3 py-0.5 text-sm uppercase tracking-wide">
                       New
-                    </p>
+                    </span>
                   )}
                 </div>
-                <h3 className="text-xl  font-bold-condensed uppercase -tracking-[0.050rem] ">
-                  {post.title}
+                <h3 className="text-xl font-bold-condensed uppercase -tracking-[0.050rem] line-clamp-2 md:line-clamp-3">
+                  {post.title!.length > 160
+                    ? post.title!.substring(0, 160) + '...'
+                    : post.title}
                 </h3>
-
-                <p className="line-clamp-2 text-[16px] leading-[24px]">
-                  {' '}
+                <p className="line-clamp-2 text-lg leading-[24px]">
                   {post.meta_default_description!.length > 160
                     ? post.meta_default_description!.substring(0, 160) + '...'
                     : post.meta_default_description}
                 </p>
               </div>
-
               <div className="flex flex-row justify-end items-center gap-6 w-full h-fit">
                 <Image
                   src={'/badges/listen-spotify.svg'}
