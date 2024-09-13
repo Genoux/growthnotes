@@ -46,7 +46,7 @@ export default function PodcastCardProps({
               />
             </div>
           )}
-          <div className="flex flex-col w-full justify-between gap-5 h-[225px]">
+          <div className="flex flex-col w-full justify-between gap-5  h-[225px]">
             <div className="flex flex-col justify-start items-start h-fit gap-1">
               <div className="flex justify-center items-center gap-2">
                 <p className="font-mono text-base line-clamp-1  ">
@@ -67,7 +67,7 @@ export default function PodcastCardProps({
                 {podcast.subtitle}
               </p>
             </div>
-            <div className="flex flex-row justify-end items-center gap-6 w-full h-fit">
+            <div className="flex flex-row justify-center md:justify-end sm:justify-end items-center gap-6 w-full h-fit">
               <Image
                 src={'/badges/listen-spotify.svg'}
                 alt="Listen Spotify"
