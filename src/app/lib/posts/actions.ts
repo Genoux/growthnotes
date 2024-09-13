@@ -144,3 +144,59 @@ export async function fetchPodcast(): Promise<Podcast[]> {
     throw error
   }
 }
+
+export async function fetchPodcast(): Promise<Podcast[]> {
+  try {
+    const url = 'https://feeds.cohostpodcasting.com/YkSrQCCT'
+
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/xml',
+      },
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(
+        `Failed to fetch podcast posts from API: ${response.status} ${response.statusText}`
+      )
+    }
+    const xmlText = await response.text()
+
+    const parser = new XMLParser({
+      ignoreAttributes: false,
+      attributeNamePrefix: '@_',
+    })
+    const jsonObj = parser.parse(xmlText)
+
+    const items = jsonObj.rss.channel.item.map((item: any) => {
+      const pubDate = new Date(item.pubDate)
+      const options: Intl.DateTimeFormatOptions = {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      }
+      const formattedDate = pubDate.toLocaleDateString('en-US', options)
+
+      const mappedItem: Podcast = {
+        title: item.title,
+        duration: item['itunes:duration'],
+        subtitle: item['itunes:subtitle'],
+        thumbnail_url: item['itunes:image']?.['@_href'],
+        publish_date: formattedDate,
+        publish_date_raw: pubDate,
+      }
+
+      return mappedItem
+    })
+
+    items.sort(
+      (a: Podcast, b: Podcast) =>
+        b.publish_date_raw.getTime() - a.publish_date_raw.getTime()
+    )
+
+    return items
+  } catch (error) {
+    throw error
+  }
+}
