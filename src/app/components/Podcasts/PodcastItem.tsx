@@ -46,7 +46,7 @@ export default function PodcastItem({
             alt={podcast.title}
             width={500}
             height={500}
-            className="border border-primary border-opacity-10 rounded-md object-cover self-start lg:self-auto w-40 sm:w-52 h-auto hidden xs:flex"
+            className="border border-primary border-opacity-10 rounded-md object-cover self-start lg:self-auto  w-56 h-auto hidden xs:flex"
           />
         )}
         <div className="flex flex-col gap-6 sm:gap-0 justify-between">
