@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useSinglePost } from '@/app/hooks/usePosts'
-import SinglePost from '@/app/components/SinglePost'
+import SinglePost from '@/app/components/Posts/SinglePost'
 
 export default function ClientLatestPostPage() {
   const { data: post, isLoading, error } = useSinglePost()

@@ -2,18 +2,47 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useMemo, useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { Badge } from '@/app/components/ui/badge'
 import SubscriptionPopup from '@/app/components/SubscriptionPopup'
 import clsx from 'clsx'
 
-export const navLinks = {
-  '/': 'Home',
-  '/podcast': 'Podcast',
-  '/posts': 'Archive',
-  '/posts/latest': 'Latest Issue',
+type NavLinkItem = {
+  href: string
+  label: string
 }
+
+export const navLinks: NavLinkItem[] = [
+  { href: '/', label: 'Home' },
+  { href: '/podcast', label: 'Podcast' },
+  { href: '/posts', label: 'Archive' },
+  { href: '/posts/latest', label: 'Latest Issue' },
+]
+
+type NavLinkProps = {
+  href: string
+  label: string
+  active: boolean
+  onClick?: () => void
+}
+
+const NavLink: React.FC<NavLinkProps> = ({ href, label, active, onClick }) => (
+  <Link
+    href={href}
+    className={clsx(
+      'text-gray-900 px-3 lg:px-4 h-11 flex items-center justify-center rounded-full w-fit transition-all text-base',
+      active
+        ? 'bg-black bg-opacity-10 cursor-auto'
+        : 'font-normal border-opacity-0 hover:bg-black hover:bg-opacity-10'
+    )}
+    onClick={onClick}
+  >
+    {label}
+    {href === '/podcast' && <Badge className="bg-orange ml-2">NEW</Badge>}
+  </Link>
+)
 
 const useNavbarVisibility = () => {
   const [isVisible, setIsVisible] = useState(true)
@@ -37,76 +66,35 @@ const useNavbarVisibility = () => {
   return isVisible
 }
 
-const useResponsiveMenu = () => {
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
-
-  useEffect(() => {
-    const handleResize = () =>
-      window.innerWidth >= 768 && setShowMobileMenu(false)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  return { showMobileMenu, setShowMobileMenu }
-}
-
-type NavLinkProps = {
-  href: string
-  active: boolean
-  children: React.ReactNode
-  onClick?: () => void
-}
-
-const NavLink = ({ href, active, children, onClick }: NavLinkProps) => (
-  <Link
-    href={href}
-    className={clsx(
-      'text-gray-900 px-4 h-12 flex items-center justify-center rounded-full w-fit transition-all',
-      active
-        ? 'bg-black bg-opacity-10 cursor-auto'
-        : 'font-normal border-opacity-0 hover:bg-black hover:bg-opacity-10'
-    )}
-    onClick={onClick}
-  >
-    {children}
-  </Link>
-)
-
 export default function NavigationBar() {
-  const [uiState, setUiState] = useState({
-    showPopup: false,
-  })
-  const isVisible = useNavbarVisibility()
-  const { showMobileMenu, setShowMobileMenu } = useResponsiveMenu()
+  const [showPopup, setShowPopup] = useState(false)
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
   const pathname = usePathname()
+  const isVisible = useNavbarVisibility()
 
-  const activeLink = useMemo(() => {
-    if (pathname === '/') return '/'
-    if (pathname.startsWith('/posts'))
-      return pathname === '/posts/latest' ? pathname : '/posts'
-    return pathname
-  }, [pathname])
-
-  const handleOpenPopup = useCallback(
-    () => setUiState(prev => ({ ...prev, showPopup: true })),
-    []
-  )
-  const handleClosePopup = useCallback(
-    () => setUiState(prev => ({ ...prev, showPopup: false })),
-    []
-  )
+  const handleOpenPopup = useCallback(() => setShowPopup(true), [])
+  const handleClosePopup = useCallback(() => setShowPopup(false), [])
   const toggleMobileMenu = useCallback(
     () => setShowMobileMenu(prev => !prev),
-    [setShowMobileMenu]
+    []
   )
 
   useEffect(() => {
     document.body.style.overflow = showMobileMenu ? 'hidden' : 'unset'
   }, [showMobileMenu])
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setShowMobileMenu(false)
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <>
-      <div className="bg-off-white w-full h-12"></div>
       <motion.nav
         className={clsx(
           'fixed top-0 left-0 right-0 z-30 backdrop-blur-md bg-off-white/80 border-b py-4',
@@ -116,7 +104,7 @@ export default function NavigationBar() {
         animate={{ y: isVisible ? 0 : '-100%' }}
         transition={{ duration: 0.3 }}
       >
-        <div className="container flex w-full items-stretch justify-between h-12">
+        <div className="container flex w-full items-center justify-between h-12">
           <Link href="/" className="flex items-center">
             <Image
               src="/growthnotes.svg"
@@ -128,25 +116,17 @@ export default function NavigationBar() {
             />
           </Link>
           <div className="hidden md:flex items-stretch space-x-2">
-            {Object.entries(navLinks).map(([href, label]) =>
-              href === '/podcast' ? (
-                <div key={href} className="flex items-center">
-                  <NavLink href={href} active={activeLink === href}>
-                    {label}
-                    <span className="bg-[#FF6635] text-white text-[14px] ml-[6px] font-bold px-[10px] py-[4px] rounded-[28px] select-none flex justify-center items-center">
-                      NEW
-                    </span>
-                  </NavLink>
-                </div>
-              ) : (
-                <NavLink key={href} href={href} active={activeLink === href}>
-                  {label}
-                </NavLink>
-              )
-            )}
+            {navLinks.map(({ href, label }) => (
+              <NavLink
+                key={href}
+                href={href}
+                label={label}
+                active={pathname === href}
+              />
+            ))}
             <motion.button
               onClick={handleOpenPopup}
-              className="bg-orange text-white text-md font-medium px-4 rounded-full flex items-center"
+              className="bg-orange text-white font-medium px-4 rounded-full flex items-center h-11 text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -196,7 +176,7 @@ export default function NavigationBar() {
               </div>
             </div>
             <div className="flex flex-col items-center justify-center flex-grow space-y-4">
-              {Object.entries(navLinks).map(([href, label]) => (
+              {navLinks.map(({ href, label }) => (
                 <motion.div
                   key={href}
                   initial={{ opacity: 0, y: 20 }}
@@ -205,11 +185,10 @@ export default function NavigationBar() {
                 >
                   <NavLink
                     href={href}
-                    active={activeLink === href}
+                    label={label}
+                    active={pathname === href}
                     onClick={toggleMobileMenu}
-                  >
-                    {label}
-                  </NavLink>
+                  />
                 </motion.div>
               ))}
               <motion.button
@@ -228,10 +207,7 @@ export default function NavigationBar() {
         )}
       </AnimatePresence>
 
-      <SubscriptionPopup
-        isOpen={uiState.showPopup}
-        onClose={handleClosePopup}
-      />
+      <SubscriptionPopup isOpen={showPopup} onClose={handleClosePopup} />
     </>
   )
 }

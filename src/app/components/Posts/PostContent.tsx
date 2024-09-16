@@ -1,10 +1,10 @@
 'use client'
-import { Post } from '@/app/lib/posts/types'
+import { PostItem } from '@/app/lib/posts/types'
 import { notFound } from 'next/navigation'
 import { Skeleton } from '@/app/components/ui/skeleton'
 
 interface PostContentProps {
-  post: Post | null | undefined
+  post: PostItem | null | undefined
   isLoading: boolean
   error: unknown
 }

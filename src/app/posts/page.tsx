@@ -1,8 +1,8 @@
 'use client'
 
-import PostList from '@/app/components/PostList'
+import PostList from '@/app/components/Posts/PostList'
 import SubscriptionBanner from '../components/SubscriptionBanner'
-import { usePosts } from '@/app/hooks/usePosts'
+import { usePosts } from '@/app/lib/posts/hooks'
 import { motion } from 'framer-motion'
 import { defaultTransition } from '@/app/utils/motionConfig'
 

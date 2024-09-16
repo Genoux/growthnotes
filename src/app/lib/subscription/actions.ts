@@ -1,15 +1,6 @@
 'use server'
 
-interface SubscriptionError {
-  message: string
-  code?: string
-}
-
-interface SubmitSubscriptionResult {
-  success: boolean
-  error?: SubscriptionError
-  data?: any
-}
+import { SubmitSubscriptionResult } from './types'
 
 export async function submitSubscription(
   formData: FormData
