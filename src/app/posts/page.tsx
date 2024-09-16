@@ -15,7 +15,7 @@ export default function PostsPage() {
       exit={{ opacity: 0 }}
       transition={defaultTransition}
     >
-      <section className="container py-20 flex flex-col gap-8">
+      <section className="container py-40 flex flex-col gap-8">
         <div className="border-b pb-3 flex items-end justify-between">
           <h1 className="text-3xl font-bold-condensed ">Archive </h1>
           <span className="font-bold-condensed text-xl uppercase">
