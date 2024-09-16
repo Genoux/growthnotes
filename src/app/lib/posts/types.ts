@@ -1,4 +1,4 @@
-export type Post = {
+export type PostItem = {
   id: string
   title: string
   meta_default_description?: string
@@ -13,22 +13,11 @@ export type Post = {
   }
 }
 
-export type Podcast = {
-  title: string
-  duration: string
-  subtitle: string
-  thumbnail_url: string
-  publish_date: string
-  publish_date_raw: Date
-}
-
-type expand = 'free_web_content'
-
 export type FetchPostsParams = {
   limit?: number
   orderBy?: string
   direction?: 'asc' | 'desc'
   audience?: string
-  expand?: expand[]
+  expand?: ['free_web_content']
   status?: string
 }

@@ -1,5 +1,5 @@
 'use client'
-import PostList from '@/app/components/PostList'
+import PostList from '@/app/components/Posts/PostList'
 import SubscriptionForm from '@/app/components/SubscriptionForm'
 import SubscriptionBanner from '@/app/components/SubscriptionBanner'
 import Image from 'next/image'
@@ -11,8 +11,6 @@ import { defaultTransition } from '@/app/utils/motionConfig'
 import { useRef } from 'react'
 
 export default function Home() {
-  const heroRef = useRef(null)
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -21,10 +19,10 @@ export default function Home() {
       transition={defaultTransition}
     >
       <main className="mx-auto w-full">
-        <section ref={heroRef} className="py-20 border-b">
+        <section className="pt-40 pb-32 border-b">
           <div className="flex flex-col gap-24 container">
-            <div className="grid grid-cols-1 md:grid-cols-2 items-center">
-              <div className="flex flex-col w-full gap-6 py-12 md:py-6 px-4 md:px-0">
+            <div className="flex lg:grid lg:grid-cols-2 gap-12 justify-between lg:gap-0 items-center">
+              <div className="flex flex-col w-full gap-6">
                 <h1 className="text-6xl lg:text-7xl text-center md:text-left font-bold-condensed -tracking-[0.175rem] w-full">
                   INSIGHTS FOR THE MODERN MARKETER
                 </h1>
@@ -40,7 +38,7 @@ export default function Home() {
                   alt="GN Blob"
                   width={400}
                   height={420}
-                  className="hidden md:flex ml-auto w-3/4 h-auto object-contain"
+                  className="hidden md:flex ml-auto w-full lg:w-3/4 h-auto object-contain"
                 />
               </div>
             </div>
@@ -78,7 +76,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col justify-center h-full">
               <div className="flex flex-col gap-6 items-center px-6 md:px-16">
-                <h2 className="text-4xl lg:text-6xl font-bold-condensed uppercase">
+                <h2 className="text-4xl xl:text-5xl font-bold-condensed uppercase">
                   {
                     "We're your monthly dose of business insights, curated for the modern marketer."
                   }

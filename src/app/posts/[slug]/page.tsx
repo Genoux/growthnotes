@@ -10,8 +10,6 @@ export async function generateMetadata({
   const posts = await fetchPosts()
   const post = posts.find(p => p.slug === params.slug)
 
-  console.log(post)
-
   if (!post) {
     return { title: 'Post Not Found' }
   }

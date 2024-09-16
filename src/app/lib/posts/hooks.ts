@@ -1,12 +1,12 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import { Post, FetchPostsParams } from '@/app/lib/posts/types'
+import { PostItem, FetchPostsParams } from '@/app/lib/posts/types'
 import { fetchPosts } from '@/app/lib/posts/actions'
 
 function useQueryPosts(
   params: FetchPostsParams = {},
   enabled: boolean = true
-): UseQueryResult<Post[], Error> {
-  return useQuery<Post[], Error>({
+): UseQueryResult<PostItem[], Error> {
+  return useQuery<PostItem[], Error>({
     queryKey: ['posts', params],
     queryFn: () => fetchPosts(params),
     staleTime: 1000 * 60 * 60 * 24 * 7,

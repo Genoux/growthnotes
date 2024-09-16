@@ -1,32 +1,26 @@
 'use client'
+import PodcastList from '@/app/components/Podcasts/PodcastList'
 import SubscriptionBanner from '@/app/components/SubscriptionBanner'
-import Image from 'next/image'
-import BrandScroll from '@/app/components/BrandScroll'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { defaultTransition } from '@/app/utils/motionConfig'
-import PodcastCard from '@/app/components/PodcastCard'
-import { fetchPodcast } from '@/app/lib/posts/actions'
-import { useEffect, useState } from 'react'
-import { Podcast } from '@/app/lib/posts/types'
+import Image from 'next/image'
+import Link from 'next/link'
+import BrandScroll from '@/app/components/BrandScroll'
 
-export default function Home() {
-  const [podcastPosts, setPodcastPosts] = useState<Podcast[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+const podcastLinks = [
+  {
+    href: 'https://podcasts.apple.com/ca/podcast/growthnotes/id1763208900',
+    src: '/badges/apple-music.svg',
+    alt: 'Apple Music',
+  },
+  {
+    href: 'https://open.spotify.com/show/4mQ0C03VxsPQfom5bz1Iyu',
+    src: '/badges/spotify.svg',
+    alt: 'Spotify',
+  },
+]
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await fetchPodcast()
-        setPodcastPosts(data)
-        setIsLoading(false)
-      } catch (error) {
-        console.error('Error fetching podcast posts:', error)
-      }
-    }
-    fetchData()
-  }, [])
-
+export default function PodcastsPage() {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -35,10 +29,10 @@ export default function Home() {
       transition={defaultTransition}
     >
       <main className="mx-auto w-full">
-        <section className="py-20 border-b">
+        <section className="pt-40 pb-32 border-b">
           <div className="flex flex-col gap-24 container">
-            <div className="grid grid-cols-1 md:grid-cols-2 items-center">
-              <div className="flex flex-col w-full gap-6 py-12 md:py-6 px-4 md:px-0 h-full justify-center items-start">
+            <div className="flex lg:grid lg:grid-cols-2 gap-20 justify-between lg:gap-0 items-center">
+              <div className="flex flex-col w-full gap-4">
                 <h1 className="text-6xl lg:text-7xl text-center md:text-left font-bold-condensed -tracking-[0.175rem] w-full">
                   {"MARKETING LEADERS' AUDIO INSIGHTS"}
                 </h1>
@@ -47,45 +41,31 @@ export default function Home() {
                   influencers, and e-commerce
                 </p>
                 <div className="flex flex-row items-center justify-center md:justify-start gap-4 mt-4 w-full">
-                  <Link
-                    href={'https://podcasts.apple.com/ca/podcast/growthnotes'}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    className="hover:scale-105 transition-transform duration-300"
-                  >
-                    <Image
-                      src={'/badges/apple-music.svg'}
-                      width={200}
-                      height={60}
-                      alt="Apple Music"
-                    />
-                  </Link>
-                  <Link
-                    href={
-                      'https://open.spotify.com/show/4mQ0C03VxsPQfom5bz1Iyu'
-                    }
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    className="hover:scale-105 transition-transform duration-300"
-                  >
-                    <Image
-                      src={'/badges/spotify.svg'}
-                      width={159}
-                      height={60}
-                      alt="Spotify"
-                    />
-                  </Link>
+                  {podcastLinks.map(link => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <Image
+                        src={link.src}
+                        width={150}
+                        height={150}
+                        alt={link.alt}
+                        className="w-full h-14 object-contain"
+                      />
+                    </Link>
+                  ))}
                 </div>
               </div>
-              <div>
-                <Image
-                  src="/grid-blob-podcast.svg"
-                  alt="GN Blob"
-                  width={400}
-                  height={420}
-                  className="hidden md:flex ml-auto w-3/4 h-auto object-contain"
-                />
-              </div>
+              <Image
+                src="/grid-blob-podcast.svg"
+                alt="GN Blob"
+                width={400}
+                height={420}
+                className="hidden md:flex ml-auto w-3/5 h-auto object-contain"
+              />
             </div>
             <BrandScroll />
           </div>
@@ -97,41 +77,24 @@ export default function Home() {
               EPISODES
             </h2>
           </div>
-
-          <div className="flex flex-col lg:flex-row justify-center items-start gap-6 w-full">
-            {podcastPosts.map((podcast, index) => (
-              <div key={index} className="w-full">
-                <Link
-                  href={'https://open.spotify.com/show/4mQ0C03VxsPQfom5bz1Iyu'}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <PodcastCard
-                    podcast={podcast}
-                    isLoading={isLoading}
-                    newPodcast={index === 0}
-                  />
-                </Link>
-              </div>
-            ))}
-          </div>
+          <PodcastList />
         </section>
 
         <section className="border-y">
           <div className="container flex items-center h-full">
-            <div className="flex flex-row justify-center items-center w-full h-full border-x ">
-              <div className=" md:px-12 lg:px-20 py-40 h-full w-full hidden md:block border-r-0 xl:border-r">
+            <div className="grid md:grid-cols-5 lg:flex justify-center items-center w-full h-full border-x">
+              <div className="w-full h-full hidden md:block col-span-2">
                 <Image
                   src="/blob-disorder.svg"
                   alt="GN Blob"
-                  width={500}
-                  height={600}
-                  className="mx-auto w-full h-full object-contain"
+                  width={400}
+                  height={400}
+                  className="mx-auto px-6 w-full lg:w-3/4 h-full object-contain"
                 />
               </div>
-              <div className="flex flex-col justify-center h-full border-l-0 md:border-l xl:border-l-0 ">
-                <div className="flex flex-col gap-6 items-center px-6 md:px-16 md:py-20 py-10">
-                  <h2 className="text-4xl lg:text-6xl font-bold-condensed uppercase">
+              <div className="flex flex-col justify-center h-full border-l-0 md:border-l py-12 lg:py-24 col-span-3">
+                <div className="flex flex-col gap-6 items-center px-6 lg:px-16">
+                  <h2 className="text-4xl xl:text-5xl font-bold-condensed uppercase">
                     {
                       'The premier podcast for marketing leaders driven to excel in the digital economy.'
                     }
