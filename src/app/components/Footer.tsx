@@ -3,11 +3,11 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { navLinks } from '@/app/components/NavigationBar'
 import SubscriptionForm from './SubscriptionForm'
-import { usePosts } from '@/app/hooks/usePosts'
+import { navLinks } from '@/app/components/NavigationBar'
+import { usePosts } from '@/app/lib/posts/hooks'
 import { Skeleton } from '@/app/components/ui/skeleton'
-import { Post } from '@/app/lib/posts/types'
+import { PostItem } from '@/app/lib/posts/types'
 
 const Footer = () => {
   const { data: latestPosts, isLoading, error } = usePosts(3)
@@ -72,7 +72,7 @@ const Footer = () => {
             <div>
               <h3 className="text-xl font-semibold mb-4">Pages</h3>
               <ul className="flex flex-col gap-2">
-                {Object.entries(navLinks).map(([href, label]) => (
+                {navLinks.map(({ href, label }) => (
                   <li key={href} className="hover:opacity-50 transition-all">
                     <Link href={href}>{label}</Link>
                   </li>
@@ -95,7 +95,7 @@ const Footer = () => {
                 <p>Error loading latest posts</p>
               ) : (
                 <ul className="flex flex-col gap-2 w-full">
-                  {latestPosts?.map((post: Post) => (
+                  {latestPosts?.map((post: PostItem) => (
                     <li key={post.slug}>
                       <Link
                         href={`/posts/${post.slug}`}

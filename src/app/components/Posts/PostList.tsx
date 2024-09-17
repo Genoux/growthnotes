@@ -1,11 +1,11 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import PostCard from './PostCard'
-import { usePosts } from '@/app/hooks/usePosts'
+import PostCard from './PostItem'
+import { usePosts } from '@/app/lib/posts/hooks'
 import { RefreshCcw } from 'lucide-react'
 import clsx from 'clsx'
-import PostPagination from '@/app/components/PostPagination'
+import PostPagination from '@/app/components/Posts/PostPagination'
 
 interface PostListProps {
   limit?: number

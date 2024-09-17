@@ -1,17 +1,17 @@
 'use client'
 import React from 'react'
-import PostContent from '@/app/components/PostContent'
+import PostContent from '@/app/components/Posts/PostContent'
 import { format, fromUnixTime } from 'date-fns'
 import SubscriptionBanner from '@/app/components/SubscriptionBanner'
 import ReadingProgressBar from '@/app/components/ReadingProgressBar'
 import { motion } from 'framer-motion'
 import { defaultTransition } from '@/app/utils/motionConfig'
-import { Post } from '@/app/lib/posts/types'
+import { PostItem } from '@/app/lib/posts/types'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 interface SinglePostProps {
-  post: Post | null
+  post: PostItem | null
   isLoading: boolean
   error: Error | null
 }
@@ -28,7 +28,7 @@ export default function SinglePost({
       exit={{ opacity: 0 }}
       transition={defaultTransition}
     >
-      <section className="container py-20 flex flex-col gap-8">
+      <section className="container py-40 flex flex-col gap-8">
         <div className="flex justify-between items-end border-b pb-3 w-full mx-auto">
           <Link
             href="/posts"

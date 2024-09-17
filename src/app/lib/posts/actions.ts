@@ -1,5 +1,11 @@
 'use server'
-import { Post, FetchPostsParams } from './types'
+
+import { PostItem, FetchPostsParams } from './types'
+
+// Posts before Aug 17 were entered manually on the same day, so their publish_dates are identical.
+// For these posts, we use displayed_date to show the intended publication date.
+// For posts on or after Aug 17, we use the actual publish_date.
+const CUTOFF_TIMESTAMP = 1723939199
 
 export async function fetchPosts({
   limit = 100,
@@ -8,7 +14,7 @@ export async function fetchPosts({
   audience = 'all',
   status = 'confirmed',
   expand = ['free_web_content'],
-}: FetchPostsParams = {}): Promise<Post[]> {
+}: FetchPostsParams = {}): Promise<PostItem[]> {
   try {
     const publicationId = process.env.PUBLICATION_ID
     const apiToken = process.env.API_TOKEN
@@ -62,7 +68,7 @@ export async function fetchPosts({
           post.publish_date <= currentTimestamp && post.publish_date !== null
       )
       .map(
-        (post: any): Post => ({
+        (post: any): PostItem => ({
           id: post.id,
           title: post.title,
           meta_default_description:
@@ -70,7 +76,10 @@ export async function fetchPosts({
           thumbnail_url: post.thumbnail_url,
           slug: post.slug,
           web_url: post.web_url,
-          publish_date: post.publish_date,
+          publish_date:
+            post.publish_date > CUTOFF_TIMESTAMP
+              ? post.publish_date
+              : post.displayed_date || post.publish_date,
           content: post.content,
         })
       )
