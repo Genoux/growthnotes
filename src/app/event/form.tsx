@@ -93,7 +93,7 @@ export default function EventRSVPForm() {
             onChange={e => handleInputChange('firstName', e.target.value)}
             disabled={isSubmitted || isLoading}
             required
-            className="border border-primary focus:border-orange focus:outline-none focus:ring-0"
+            className="border border-primary focus:border-primary focus:border-2 focus:outline-none focus:ring-0"
           />
         </div>
         <div>
@@ -107,7 +107,7 @@ export default function EventRSVPForm() {
             onChange={e => handleInputChange('lastName', e.target.value)}
             disabled={isSubmitted || isLoading}
             required
-            className="border border-primary focus:border-orange focus:outline-none focus:ring-0"
+            className="border border-primary focus:border-primary focus:border-2 focus:outline-none focus:ring-0"
           />
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function EventRSVPForm() {
           onChange={e => handleInputChange('email', e.target.value)}
           disabled={isSubmitted || isLoading}
           required
-          className="border border-primary focus:border-orange focus:outline-none focus:ring-0"
+          className="border border-primary focus:border-primary focus:border-2 focus:outline-none focus:ring-0"
         />
       </div>
 
@@ -137,7 +137,7 @@ export default function EventRSVPForm() {
           value={formData.company}
           onChange={e => handleInputChange('company', e.target.value)}
           disabled={isSubmitted || isLoading}
-          className="border border-primary focus:border-orange focus:outline-none focus:ring-0"
+          className="border border-primary focus:border-primary focus:border-2 focus:outline-none focus:ring-0"
         />
       </div>
 
@@ -151,7 +151,7 @@ export default function EventRSVPForm() {
           value={formData.phone}
           onChange={e => handleInputChange('phone', e.target.value)}
           disabled={isSubmitted || isLoading}
-          className="border border-primary focus:border-orange focus:outline-none focus:ring-0"
+          className="border border-primary focus:border-primary focus:border-2 focus:outline-none focus:ring-0"
         />
       </div>
 
@@ -170,7 +170,7 @@ export default function EventRSVPForm() {
             handleInputChange('dietaryRestrictions', e.target.value)
           }
           disabled={isSubmitted || isLoading}
-          className="border border-primary focus:border-orange focus:outline-none focus:ring-0"
+          className="border border-primary focus:border-primary focus:border-2 focus:outline-none focus:ring-0"
         />
       </div>
 
@@ -185,7 +185,7 @@ export default function EventRSVPForm() {
           disabled={isSubmitted || isLoading}
           required
           rows={4}
-          className="flex w-full rounded-md border border-primary bg-background px-3 py-2 text-sm ring-offset-transparent file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-orange focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex w-full rounded-md border border-primary bg-background px-3 py-2 text-sm ring-offset-transparent file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-primary focus:border-2 focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
         />
       </div>
 
