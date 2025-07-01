@@ -8,7 +8,7 @@ import { CheckIcon } from 'lucide-react'
 import clsx from 'clsx'
 import { useSubscription } from '@/app/contexts/SubscriptionContext'
 import { LoadingCircle } from '@/app/components/LoadingCircle'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 
 function FormContent({
   email,

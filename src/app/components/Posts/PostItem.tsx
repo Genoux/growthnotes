@@ -2,7 +2,7 @@ import { PostItem as PostItemType } from '@/app/lib/posts/types'
 import Link from 'next/link'
 import Image from 'next/image'
 import { format, fromUnixTime } from 'date-fns'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Skeleton } from '@/app/components/ui/skeleton'
 import { Badge } from '@/app/components/ui/badge'
 

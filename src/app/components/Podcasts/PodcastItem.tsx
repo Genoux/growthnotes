@@ -1,6 +1,6 @@
 import { PodcastItem as PodcastItemType } from '@/app/lib/podcasts/types'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Skeleton } from '@/app/components/ui/skeleton'
 import { Badge } from '@/app/components/ui/badge'
 import Link from 'next/link'

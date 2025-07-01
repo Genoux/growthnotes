@@ -1,7 +1,5 @@
 'use client'
-import EventRSVPForm from './form'
-import { motion } from 'framer-motion'
-import { defaultTransition } from '@/app/utils/motionConfig'
+import EventForm from './form'
 import {
   Calendar,
   MapPin,
@@ -12,15 +10,25 @@ import {
   Star,
   MailOpen,
 } from 'lucide-react'
+import { useState, useRef } from 'react'
 
 export default function EventRSVPPage() {
+  const formContainerRef = useRef<HTMLDivElement>(null)
+
+  const handleSuccess = () => {
+    if (formContainerRef.current) {
+      const elementTop =
+        formContainerRef.current.getBoundingClientRect().top +
+        window.pageYOffset
+      const offset = 150
+      window.scrollTo({
+        top: elementTop - offset,
+      })
+    }
+  }
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={defaultTransition}
-    >
+    <div>
       <main className="px-4 mx-auto max-w-[800px] my-32 flex flex-col gap-8 relative">
         <div className="absolute top-2 right-6 lg:-top-3 lg:-right-3 bg-white rounded-full p-2 outline outline-2 border-primary">
           <MailOpen className="w-6 h-6 text-primary" />
@@ -161,19 +169,13 @@ export default function EventRSVPPage() {
             </div>
           </section>
         </div>
-        <div className="w-full bg-white rounded-lg py-8 md:py-10 px-6 md:px-8 outline outline-2 outline-primary flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
-            <h2 className="text-3xl font-bold-condensed text-start">
-              SECURE YOUR SEAT
-            </h2>
-            <p className="text-sm text-start">
-              This invite-only dinner has a seat reserved just for you—but we
-              need your confirmation!
-            </p>
-          </div>
-          <EventRSVPForm />
+        <div
+          ref={formContainerRef}
+          className="w-full bg-white rounded-lg py-8 md:py-10 px-6 md:px-8 outline outline-2 outline-primary"
+        >
+          <EventForm onSuccess={handleSuccess} />
         </div>
       </main>
-    </motion.div>
+    </div>
   )
 }

@@ -1,6 +1,6 @@
 export const defaultTransition = {
   duration: 0.2,
-  ease: [0.43, 0.13, 0.23, 0.96],
+  ease: [0.43, 0.13, 0.23, 0.96] as [number, number, number, number],
   delay: 0.1,
 }
 
