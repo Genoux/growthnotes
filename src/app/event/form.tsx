@@ -33,9 +33,14 @@ export default function EventForm({ onSuccess }: EventFormProps) {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
+    // Clear error when user starts typing
+    if (error) {
+      setError(null)
+    }
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -43,15 +48,28 @@ export default function EventForm({ onSuccess }: EventFormProps) {
     if (isSubmitted) return
 
     setIsLoading(true)
+    setError(null) // Clear any previous errors
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      const response = await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit RSVP')
+      }
 
       setIsSubmitted(true)
       onSuccess()
     } catch (err) {
       console.error('RSVP submission failed:', err)
+      setError('Failed to submit RSVP. Please try again.')
     } finally {
       setIsLoading(false)
     }
@@ -188,8 +206,13 @@ export default function EventForm({ onSuccess }: EventFormProps) {
           />
         </div>
 
-        <div className="text-center py-6">
+        <div className={`text-center ${error ? 'pt-0' : 'py-6'}`}>
           <div className="flex flex-col gap-6 items-center">
+            {error && (
+              <div className="w-full bg-red-50 border border-red-200 rounded-lg p-4 text-red-700 text-sm font-medium">
+                {error}
+              </div>
+            )}
             <Button
               type="submit"
               disabled={isLoading}
