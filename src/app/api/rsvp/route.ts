@@ -63,7 +63,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const result = await webhookResponse.json()
+    // Handle webhook response - it might be empty or non-JSON
+    let result = { success: true }
+    try {
+      const responseText = await webhookResponse.text()
+      if (responseText.trim()) {
+        result = JSON.parse(responseText)
+      }
+    } catch (parseError) {
+      console.warn(
+        'n8n webhook returned non-JSON response, treating as success'
+      )
+    }
 
     return NextResponse.json({
       success: true,
