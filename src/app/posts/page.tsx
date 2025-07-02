@@ -3,7 +3,7 @@
 import PostList from '@/app/components/Posts/PostList'
 import SubscriptionBanner from '../components/SubscriptionBanner'
 import { usePosts } from '@/app/lib/posts/hooks'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { defaultTransition } from '@/app/utils/motionConfig'
 
 export default function PostsPage() {

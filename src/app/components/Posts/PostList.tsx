@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import PostCard from './PostItem'
 import { usePosts } from '@/app/lib/posts/hooks'
 import { RefreshCcw } from 'lucide-react'

@@ -1,7 +1,7 @@
 'use client'
 import PodcastList from '@/app/components/Podcasts/PodcastList'
 import SubscriptionBanner from '@/app/components/SubscriptionBanner'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { defaultTransition } from '@/app/utils/motionConfig'
 import Image from 'next/image'
 import Link from 'next/link'

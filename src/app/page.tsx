@@ -6,9 +6,8 @@ import Image from 'next/image'
 import BrandScroll from '@/app/components/BrandScroll'
 import { Button } from '@/app/components/ui/button'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { defaultTransition } from '@/app/utils/motionConfig'
-import { useRef } from 'react'
 
 export default function Home() {
   return (
