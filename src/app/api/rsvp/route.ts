@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
         phone: body.phone || '',
         dietaryRestrictions: body.dietaryRestrictions || '',
         message: body.message,
-        submittedAt: new Date().toISOString(),
+        submittedAt: new Date().toLocaleString('en-US'),
       }),
     })
 
