@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, ReactNode } from 'react'
-import { motion, useSpring, useScroll } from 'framer-motion'
+import { motion, useSpring, useScroll } from 'motion/react'
 
 interface ReadingProgressBarProps {
   children: ReactNode

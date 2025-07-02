@@ -6,6 +6,7 @@ import { Toaster } from '@/app/components/ui/toaster'
 import NavigationBar from '@/app/components/NavigationBar'
 import Footer from '@/app/components/Footer'
 import { SubscriptionProvider } from '@/app/contexts/SubscriptionContext'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata: Metadata = {
   title: 'Growthnotes | Insights for the modern marketer',
@@ -40,6 +41,7 @@ export default function RootLayout({
           <SubscriptionProvider>
             <NavigationBar />
             {children}
+            <SpeedInsights />
             <Footer />
           </SubscriptionProvider>
         </Providers>

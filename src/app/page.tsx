@@ -6,9 +6,8 @@ import Image from 'next/image'
 import BrandScroll from '@/app/components/BrandScroll'
 import { Button } from '@/app/components/ui/button'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { defaultTransition } from '@/app/utils/motionConfig'
-import { useRef } from 'react'
 
 export default function Home() {
   return (
@@ -21,7 +20,7 @@ export default function Home() {
       <main className="mx-auto w-full">
         <section className="pt-40 pb-32 border-b">
           <div className="flex flex-col gap-24 container">
-            <div className="flex lg:grid lg:grid-cols-2 gap-12 justify-between lg:gap-0 items-center">
+            <div className="lg:grid lg:grid-cols-2 flex justify-between items-center">
               <div className="flex flex-col w-full gap-6">
                 <h1 className="text-6xl lg:text-7xl text-center md:text-left font-bold-condensed -tracking-[0.175rem] w-full">
                   INSIGHTS FOR THE MODERN MARKETER

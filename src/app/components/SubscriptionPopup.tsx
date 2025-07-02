@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import SubscriptionForm from '@/app/components/SubscriptionForm'
 import { X } from 'lucide-react'
 import { Button } from '@/app/components/ui/button'

@@ -5,10 +5,11 @@ import ClientPostPage from './ClientPostPage'
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
+  const { slug } = await params
   const posts = await fetchPosts()
-  const post = posts.find(p => p.slug === params.slug)
+  const post = posts.find(p => p.slug === slug)
 
   if (!post) {
     return { title: 'Post Not Found' }
@@ -34,6 +35,11 @@ export async function generateMetadata({
   }
 }
 
-export default function PostPage({ params }: { params: { slug: string } }) {
-  return <ClientPostPage slug={params.slug} />
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  return <ClientPostPage slug={slug} />
 }

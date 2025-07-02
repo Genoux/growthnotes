@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import BrandScroll from '@/app/components/BrandScroll'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { defaultTransition } from '@/app/utils/motionConfig'
 
 export default function Subscribed() {
