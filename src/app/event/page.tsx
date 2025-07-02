@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import EventPageClient from './EventPageClient'
 
 export const metadata: Metadata = {
-  title: 'Invite-Only Marketing Dinner | Growthnotes',
+  title: 'Growthnotes | Invite-Only Marketing Dinner ',
   description: 'Private networking event for B2B marketing leaders in Toronto',
   robots: {
     index: false,
