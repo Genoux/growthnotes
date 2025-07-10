@@ -36,8 +36,8 @@ export default function EventPageClient() {
         <div className="bg-white py-8 md:py-10 px-6 md:px-8 rounded-lg outline outline-2 outline-primary flex flex-col gap-12">
           <section className="flex flex-col gap-10">
             <div className="flex flex-col gap-4 text-start">
-              <p className="max-w-sm sm:max-w-none text-sm lg:text-lg font-medium">
-                Join Toronto&apos;s Most Exclusive Gathering of B2B Marketing
+              <p className="max-w-sm sm:max-w-none text-sm lg:text-lg font-medium pr-12">
+                Join Toronto&apos;s Most Exclusive Gathering of Marketing
                 Leaders
               </p>
               <h1 className="text-5xl sm:text-6xl font-bold-condensed -tracking-[0.175rem]">
