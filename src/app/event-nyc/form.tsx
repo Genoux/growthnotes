@@ -51,7 +51,7 @@ export default function EventForm({ onSuccess }: EventFormProps) {
     setError(null) // Clear any previous errors
 
     try {
-      const response = await fetch('/api/rsvp', {
+      const response = await fetch('/api/rsvp-nyc', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
