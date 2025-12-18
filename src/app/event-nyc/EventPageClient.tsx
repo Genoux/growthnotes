@@ -37,7 +37,7 @@ export default function EventPageClient() {
           <section className="flex flex-col gap-10">
             <div className="flex flex-col gap-4 text-start">
               <p className="max-w-sm sm:max-w-none text-sm lg:text-lg font-medium pr-12">
-                Join Toronto&apos;s Most Exclusive Gathering of Marketing
+                Join NYC&apos;s Most Exclusive Gathering of Marketing
                 Leaders
               </p>
               <h1 className="text-5xl sm:text-6xl font-bold-condensed -tracking-[0.175rem]">
@@ -59,7 +59,7 @@ export default function EventPageClient() {
                   <Calendar className="w-6 h-6 text-primary" />
                   <div className="flex flex-col gap-1">
                     <p className="text-lg font-bold-condensed">
-                      Thursday, September 4th, 2025
+                      Tuesday, August 19, 2025
                     </p>
                     <p className="text-sm">6:00 PM - 9:00 PM</p>
                   </div>
@@ -71,11 +71,11 @@ export default function EventPageClient() {
                   <MapPin className="w-6 h-6 text-primary mt-1" />
                   <div className="flex flex-col gap-1">
                     <p className="text-lg font-bold-condensed">
-                      Canoe Restaurant
+                      ilili Restaurant
                     </p>
                     <div className="flex flex-col">
-                      <p className="text-sm">66 Wellington St W, 54th Floor</p>
-                      <p className="text-sm">Toronto, ON M5K 1H6</p>
+                      <p className="text-sm">236 5th Ave</p>
+                      <p className="text-sm">New York, NY 10001, United States</p>
                     </div>
                   </div>
                 </div>
@@ -106,7 +106,7 @@ export default function EventPageClient() {
                     <div className="flex flex-col items-center gap-2">
                       <TrendingUp className="w-6 h-6 text-primary" />
                       <p className="text-sm">
-                        Real talk about B2B marketing wins
+                        Real talk about B2B & B2C marketing wins
                       </p>
                     </div>
                   </div>
@@ -146,20 +146,16 @@ export default function EventPageClient() {
                 WHO WILL BE IN THE ROOM?
               </h2>
               <p className="text-sm max-w-xl">
-                We&apos;re bringing together a select group of B2B marketing
-                leaders—CMOs, VPs, and Directors—for deep discussions, fresh
-                perspectives, and connections that could redefine your path
-                forward.
+                A curated group of senior B2B and B2C marketing leaders—CMOs, VPs, and Directors—coming together for insightful conversations, new perspectives, and meaningful connections that could shape what&apos;s next for you.
               </p>
             </div>
             <div className="bg-lighter-green rounded-lg p-8 outline outline-[1px] outline-primary text-center max-w-3xl mx-auto flex flex-col gap-4">
               <h2 className="text-xl sm:text-2xl font-bold-condensed">
-                A NIGHT OF CULINARY EXCELLENCE—COMPLIMENTARY
+                A NIGHT OF CULINARY EXCELLENCE — COMPLIMENTARY
               </h2>
               <div className="flex flex-col gap-4">
                 <p className="text-sm sm:text-base">
-                  This is networking, redefined. Enjoy a meticulously crafted
-                  multi-course dinner paired with curated selections from Canoe Restaurant, Denver&apos;s premier winemaker.
+                  This is networking, elevated. Savor a thoughtfully curated multi-course dinner, perfectly paired with select wines, all courtesy of ilili Restaurant NYC.
                 </p>
                 <p className="font-medium text-sm sm:text-lg">
                   Come hungry. Leave enriched.
